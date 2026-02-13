@@ -122,7 +122,8 @@ ul { list-style: none; }
 .boot-overlay.fade-out {
   opacity: 0;
   transform: scale(.97);
-  pointer-events: none;
+  pointer-events: none !important;
+  visibility: hidden;
 }
 .boot-panel {
   width: 90%;

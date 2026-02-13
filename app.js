@@ -27,10 +27,12 @@
     bootTimers = [];
     sessionStorage.setItem('bootSeen', 'true');
     bootOverlay.classList.add('fade-out');
+    bootOverlay.style.pointerEvents = 'none';
     nav.classList.add('visible');
     document.body.style.overflow = '';
     setTimeout(() => {
       bootOverlay.style.display = 'none';
+      bootOverlay.style.pointerEvents = '';
       if (!revealsInitialized) {
         revealsInitialized = true;
         initReveals();
