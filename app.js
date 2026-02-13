@@ -37,9 +37,10 @@
     sessionStorage.setItem('bootSeen', 'true');
     bootOverlay.classList.add('fade-out');
     bootOverlay.style.pointerEvents = 'none';
+    bootOverlay.style.visibility = 'hidden'; // Immediate visibility hidden
     nav.classList.add('visible');
     document.body.style.overflow = '';
-    console.log('[BOOT] fade-out class added, pointer-events blocked');
+    console.log('[BOOT] fade-out class added, pointer-events blocked, visibility hidden');
     setTimeout(() => {
       bootOverlay.style.display = 'none';
       bootOverlay.style.pointerEvents = '';
@@ -61,10 +62,11 @@
     lines.forEach((line) => line.classList.remove('visible'));
     bootBar.style.width = '0%';
     bootOverlay.classList.remove('fade-out');
-    bootOverlay.style.display = '';
+    bootOverlay.style.display = 'flex'; // EXPLICIT display value
+    bootOverlay.style.visibility = 'visible'; // Restore visibility
     bootOverlay.style.pointerEvents = ''; // Reset pointer-events
     document.body.style.overflow = 'hidden';
-    console.log('[BOOT] boot sequence started, display restored');
+    console.log('[BOOT] boot sequence started, display/visibility/pointerEvents restored');
 
     const totalDuration = 2800;
     lines.forEach((line) => {
