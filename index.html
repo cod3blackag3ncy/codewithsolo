@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#1a1a2e">
+  <meta name="description" content="Silver Watkins — Solo developer shipping cinematic web experiences with AI-assisted velocity. Web Dev, Branding, Mobile Apps, AI/ML.">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>codewithsolo — Silver Watkins // Cod3BlackAgency</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icons/icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+  <!-- ═══════════════ BOOT OVERLAY ═══════════════ -->
+  <div id="boot-overlay" class="boot-overlay" aria-live="polite">
+    <div class="boot-panel glass neo-border">
+      <div class="boot-header">
+        <span class="boot-dot red"></span>
+        <span class="boot-dot yellow"></span>
+        <span class="boot-dot green"></span>
+        <span class="boot-title">SOLO_TERMINAL v3.0</span>
+      </div>
+      <div class="boot-body" id="boot-body">
+        <div class="boot-line" data-delay="0">> initializing codewithsolo…</div>
+        <div class="boot-line" data-delay="400">> loading project modules <span class="cyan">[4 found]</span></div>
+        <div class="boot-line" data-delay="900">> establishing secure channel…</div>
+        <div class="boot-line" data-delay="1400">> decrypting portfolio assets…</div>
+        <div class="boot-line accent" data-delay="2000">> <span class="green">ACCESS GRANTED</span> — SILVER WATKINS // CODEWITHSOLO</div>
+      </div>
+      <div class="boot-progress">
+        <div class="boot-progress-bar" id="boot-progress-bar"></div>
+      </div>
+    </div>
+    <button class="boot-skip" id="boot-skip" aria-label="Skip intro">SKIP ▸</button>
+  </div>
+
+  <!-- ═══════════════ SCANLINES OVERLAY ═══════════════ -->
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ═══════════════ AURORA BACKGROUND ═══════════════ -->
+  <div class="aurora" aria-hidden="true"></div>
+
+  <!-- ═══════════════ COMMAND PALETTE ═══════════════ -->
+  <div class="cmd-backdrop" id="cmd-backdrop" hidden>
+    <div class="cmd-modal glass neo-border" role="dialog" aria-label="Command Console">
+      <div class="cmd-header">
+        <span class="mono muted">COMMAND CONSOLE</span>
+        <kbd>ESC</kbd>
+      </div>
+      <input type="text" class="cmd-input" id="cmd-input" placeholder="> type a command…" autocomplete="off" spellcheck="false">
+      <ul class="cmd-list" id="cmd-list">
+        <li data-action="hero"><span class="cmd-icon">◆</span> Go to Top</li>
+        <li data-action="projects"><span class="cmd-icon">◆</span> View Projects</li>
+        <li data-action="services"><span class="cmd-icon">◆</span> View Services</li>
+        <li data-action="workflow"><span class="cmd-icon">◆</span> Amp Workflow</li>
+        <li data-action="contact"><span class="cmd-icon">◆</span> Open Secure Channel</li>
+        <li data-action="copy-email"><span class="cmd-icon">📧</span> Copy Email Address</li>
+        <li data-action="install"><span class="cmd-icon">⬇</span> Install PWA</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ═══════════════ NAV ═══════════════ -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-brand" aria-label="codewithsolo home">
+      <span class="nav-logo">◆</span>
+      <span class="nav-name">codewithsolo</span>
+    </a>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#services">Services</a>
+      <a href="#contact">Contact</a>
+      <button class="nav-cmd" id="nav-cmd-btn" aria-label="Open command palette">
+        <span class="mono">⌘K</span>
+      </button>
+    </div>
+    <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- ═══════════════ MOBILE NAV ═══════════════ -->
+  <div class="mobile-nav" id="mobile-nav" hidden>
+    <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#services" class="mobile-nav-link">Services</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <button class="mobile-nav-link" id="mobile-cmd-btn">⌘K Command Console</button>
+  </div>
+
+  <main id="main-content">
+
+    <!-- ═══════════════ HERO ═══════════════ -->
+    <section class="hero" id="hero">
+      <div class="hero-inner">
+        <div class="hero-panel glass neo-border reveal">
+          <p class="hero-tag mono">◆ OPERATIVE SOLO — SYSTEM ONLINE</p>
+          <h1 class="hero-title">Silver Watkins<span class="cyan">.</span></h1>
+          <p class="hero-subtitle">Solo developer shipping <span class="cyan">cinematic web experiences</span> with AI-assisted velocity.</p>
+          <p class="hero-meta mono muted">Cod3BlackAgency &nbsp;·&nbsp; Web Dev &nbsp;·&nbsp; Branding &nbsp;·&nbsp; Mobile &nbsp;·&nbsp; AI/ML</p>
+          <div class="hero-ctas">
+            <a href="#contact" class="btn btn-primary">Initiate Contact</a>
+            <a href="#projects" class="btn btn-secondary">View Missions ▸</a>
+          </div>
+        </div>
+        <div class="hero-stats reveal" style="--delay:.3s">
+          <div class="stat-card glass">
+            <span class="stat-val cyan">4+</span>
+            <span class="stat-label mono">LIVE PROJECTS</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-val green">AI</span>
+            <span class="stat-label mono">AMP-POWERED</span>
+          </div>
+          <div class="stat-card glass">
+            <span class="stat-val cyan">PWA</span>
+            <span class="stat-label mono">INSTALLABLE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ AMP WORKFLOW ═══════════════ -->
+    <section class="workflow" id="workflow">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">02 //</span> Amp-Driven Workflow</h2>
+        <p class="section-subtitle reveal">AI-augmented development — shipping in hours, not weeks.</p>
+        <div class="pipeline reveal" style="--delay:.2s">
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono cyan">01</span>
+              <h3>Brief</h3>
+              <p class="muted">Define scope, brand direction, technical requirements.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono cyan">02</span>
+              <h3>Prototype</h3>
+              <p class="muted">Rapid wireframing and interactive mockups in hours.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono green">03</span>
+              <h3>Amp Pair-Programming</h3>
+              <p class="muted">AI-assisted code generation with human creative direction.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono cyan">04</span>
+              <h3>QA + Polish</h3>
+              <p class="muted">Cross-browser testing, performance tuning, accessibility audit.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono green">05</span>
+              <h3>Deploy</h3>
+              <p class="muted">Ship to Vercel / Cloudflare Pages with CI/CD pipeline.</p>
+            </div>
+          </div>
+          <div class="pipe-line" aria-hidden="true">
+            <div class="pipe-line-glow"></div>
+          </div>
+        </div>
+        <div class="pipeline-metric glass reveal" style="--delay:.4s">
+          <span class="mono cyan">AVG TURNAROUND:</span>
+          <span class="metric-value">Hours, not weeks.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <section class="projects" id="projects">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">03 //</span> Mission Log</h2>
+        <p class="section-subtitle reveal">Live deployments. All links are operational.</p>
+
+        <div class="mission-grid">
+
+          <!-- Mission 01: C3BAI -->
+          <article class="mission-card glass neo-border reveal" data-mission="01">
+            <div class="mission-header">
+              <span class="mission-id mono cyan">MISSION 01</span>
+              <span class="mission-status mono green">● LIVE</span>
+            </div>
+            <h3 class="mission-title">Cod3Black Agency</h3>
+            <p class="mission-desc muted">Full-stack agency site with automated inquiry system, case studies, PWA offline support. Next.js 15 + TypeScript + Tailwind CSS.</p>
+            <div class="mission-tags">
+              <span class="tag">Next.js 15</span>
+              <span class="tag">TypeScript</span>
+              <span class="tag">PWA</span>
+              <span class="tag">Resend</span>
+            </div>
+            <div class="mission-telemetry mono">
+              <div class="tele-row"><span class="muted">STACK</span><span>Next.js · TypeScript · Tailwind</span></div>
+              <div class="tele-row"><span class="muted">INFRA</span><span>Vercel · Upstash Redis</span></div>
+              <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
+            </div>
+            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener" class="mission-link btn btn-primary">→ c3bai.vercel.app</a>
+          </article>
+
+          <!-- Mission 02: Taste of Gratitude -->
+          <article class="mission-card glass neo-border reveal" data-mission="02" style="--delay:.15s">
+            <div class="mission-header">
+              <span class="mission-id mono green">MISSION 02</span>
+              <span class="mission-status mono green">● LIVE</span>
+            </div>
+            <h3 class="mission-title">Taste of Gratitude</h3>
+            <p class="mission-desc muted">Boba tea shop — branded ordering system, digital menu, email marketing templates. Full brand identity from logo to web.</p>
+            <div class="mission-tags">
+              <span class="tag">E-Commerce</span>
+              <span class="tag">Branding</span>
+              <span class="tag">Email</span>
+              <span class="tag">Menu System</span>
+            </div>
+            <div class="mission-telemetry mono">
+              <div class="tele-row"><span class="muted">STACK</span><span>Custom Build · Brand Design</span></div>
+              <div class="tele-row"><span class="muted">INFRA</span><span>Custom Domain</span></div>
+              <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
+            </div>
+            <a href="https://tasteofgratitude.shop" target="_blank" rel="noopener" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ tasteofgratitude.shop</a>
+          </article>
+
+          <!-- Mission 03: TradeAlerts -->
+          <article class="mission-card glass neo-border reveal" data-mission="03" style="--delay:.3s">
+            <div class="mission-header">
+              <span class="mission-id mono cyan">MISSION 03</span>
+              <span class="mission-status mono green">● LIVE</span>
+            </div>
+            <h3 class="mission-title">TradeAlerts</h3>
+            <p class="mission-desc muted">AI-powered trading signal platform — real-time alerts, subscription system, community chat, push notifications, admin dashboard.</p>
+            <div class="mission-tags">
+              <span class="tag">React Native</span>
+              <span class="tag">Firebase</span>
+              <span class="tag">AI/ML</span>
+              <span class="tag">Subscriptions</span>
+            </div>
+            <div class="mission-telemetry mono">
+              <div class="tele-row"><span class="muted">STACK</span><span>React Native · Firebase</span></div>
+              <div class="tele-row"><span class="muted">PLAN</span><span>$49.99/mo Pro</span></div>
+              <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
+            </div>
+            <a href="https://ktradealerts.vercel.app" target="_blank" rel="noopener" class="mission-link btn btn-primary">→ ktradealerts.vercel.app</a>
+          </article>
+
+          <!-- Mission 04: Beltline Golf -->
+          <article class="mission-card glass neo-border reveal" data-mission="04" style="--delay:.45s">
+            <div class="mission-header">
+              <span class="mission-id mono green">MISSION 04</span>
+              <span class="mission-status mono cyan">◇ CASE STUDY</span>
+            </div>
+            <h3 class="mission-title">Beltline Golf</h3>
+            <p class="mission-desc muted">Golf venue — booking system concept with leaderboard, Stripe payments, digital waivers. Full case study on agency site.</p>
+            <div class="mission-tags">
+              <span class="tag">Booking System</span>
+              <span class="tag">Stripe</span>
+              <span class="tag">Leaderboard</span>
+              <span class="tag">Local Biz</span>
+            </div>
+            <div class="mission-telemetry mono">
+              <div class="tele-row"><span class="muted">STACK</span><span>Next.js · Stripe · Concept</span></div>
+              <div class="tele-row"><span class="muted">INFRA</span><span>Custom Domain</span></div>
+              <div class="tele-row"><span class="muted">STATUS</span><span class="cyan">CASE STUDY</span></div>
+            </div>
+            <a href="https://beltlinegolf.com" target="_blank" rel="noopener" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ beltlinegolf.com</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ SERVICES ═══════════════ -->
+    <section class="services" id="services">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">04 //</span> Service Modules</h2>
+        <p class="section-subtitle reveal">Select a module to expand operational details.</p>
+
+        <div class="service-accordion reveal" style="--delay:.2s">
+
+          <div class="svc-module" data-module="landing">
+            <button class="svc-header" aria-expanded="false">
+              <span class="svc-led"></span>
+              <span class="svc-name">Landing Systems</span>
+              <span class="svc-outcome mono muted">High-conversion, cinematic web experiences</span>
+              <span class="svc-toggle">+</span>
+            </button>
+            <div class="svc-body">
+              <p>Custom-designed landing pages that convert visitors into clients. Built with performance-first architecture, PWA support, and mobile-optimized layouts.</p>
+              <div class="svc-spec mono">
+                <span>DELIVERABLES: Design + Dev + Deploy</span>
+                <span>TIMELINE: 1–3 days</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-module" data-module="pwa">
+            <button class="svc-header" aria-expanded="false">
+              <span class="svc-led"></span>
+              <span class="svc-name">PWA Deployments</span>
+              <span class="svc-outcome mono muted">Offline-ready, installable applications</span>
+              <span class="svc-toggle">+</span>
+            </button>
+            <div class="svc-body">
+              <p>Progressive Web Apps with service workers, manifest configuration, offline fallbacks, and push notification support. Ship to any device.</p>
+              <div class="svc-spec mono">
+                <span>DELIVERABLES: PWA + Service Worker + Manifest</span>
+                <span>TIMELINE: 2–5 days</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-module" data-module="ecom">
+            <button class="svc-header" aria-expanded="false">
+              <span class="svc-led"></span>
+              <span class="svc-name">E-Commerce Builds</span>
+              <span class="svc-outcome mono muted">Complete digital storefronts with payment systems</span>
+              <span class="svc-toggle">+</span>
+            </button>
+            <div class="svc-body">
+              <p>Full e-commerce solutions with Stripe integration, inventory management, digital menus, and branded checkout flows. From concept to revenue.</p>
+              <div class="svc-spec mono">
+                <span>DELIVERABLES: Store + Payments + Admin</span>
+                <span>TIMELINE: 1–2 weeks</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-module" data-module="mobile">
+            <button class="svc-header" aria-expanded="false">
+              <span class="svc-led"></span>
+              <span class="svc-name">Mobile Apps</span>
+              <span class="svc-outcome mono muted">Cross-platform native experiences</span>
+              <span class="svc-toggle">+</span>
+            </button>
+            <div class="svc-body">
+              <p>React Native and PWA mobile applications with push notifications, real-time data, subscription systems, and offline support.</p>
+              <div class="svc-spec mono">
+                <span>DELIVERABLES: iOS + Android + Backend</span>
+                <span>TIMELINE: 2–4 weeks</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-module" data-module="automation">
+            <button class="svc-header" aria-expanded="false">
+              <span class="svc-led"></span>
+              <span class="svc-name">Automation & AI</span>
+              <span class="svc-outcome mono muted">AI-powered workflows, bots, and integrations</span>
+              <span class="svc-toggle">+</span>
+            </button>
+            <div class="svc-body">
+              <p>Custom automation pipelines, AI/ML integrations, chatbots, email marketing systems, and DevOps infrastructure. Let machines handle the repetitive work.</p>
+              <div class="svc-spec mono">
+                <span>DELIVERABLES: System + Integration + Docs</span>
+                <span>TIMELINE: 1–2 weeks</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="svc-module" data-module="brand">
+            <button class="svc-header" aria-expanded="false">
+              <span class="svc-led"></span>
+              <span class="svc-name">Brand Identity</span>
+              <span class="svc-outcome mono muted">Logo, palette, typography, brand guidelines</span>
+              <span class="svc-toggle">+</span>
+            </button>
+            <div class="svc-body">
+              <p>Complete brand identity packages — logo design, color systems, typography pairing, email templates, and brand guideline documents. Your identity, crafted to command attention.</p>
+              <div class="svc-spec mono">
+                <span>DELIVERABLES: Logo + Guidelines + Templates</span>
+                <span>TIMELINE: 3–7 days</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ OPERATIONAL LOG ═══════════════ -->
+    <section class="op-log" id="log">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">05 //</span> Operational Log</h2>
+        <div class="log-entries reveal" style="--delay:.15s">
+          <div class="log-entry glass">
+            <span class="log-time mono muted">2024–2026</span>
+            <span class="log-msg"><span class="green">▸</span> Shipped <span class="cyan">4+ production sites</span> across Vercel & Cloudflare Pages</span>
+          </div>
+          <div class="log-entry glass">
+            <span class="log-time mono muted">PERF</span>
+            <span class="log-msg"><span class="green">▸</span> Lighthouse scores <span class="cyan">90+</span> across all deployments</span>
+          </div>
+          <div class="log-entry glass">
+            <span class="log-time mono muted">STACK</span>
+            <span class="log-msg"><span class="green">▸</span> Next.js · React Native · TypeScript · Firebase · <span class="cyan">Amp AI</span></span>
+          </div>
+          <div class="log-entry glass">
+            <span class="log-time mono muted">MOTTO</span>
+            <span class="log-msg"><span class="green">▸</span> "Ship fast. Ship polished. <span class="cyan">Ship solo.</span>"</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ CTA / CONTACT ═══════════════ -->
+    <section class="contact" id="contact">
+      <div class="container">
+        <div class="contact-panel glass neo-border reveal">
+          <div class="contact-badge mono muted">◆ SECURE CHANNEL // OPEN</div>
+          <h2 class="contact-title">Let's build something<span class="cyan">.</span></h2>
+          <p class="contact-desc">Ready to ship your next project? Open a secure channel. I respond fast.</p>
+          <div class="contact-actions">
+            <a href="mailto:silverwatkins@gmail.com?subject=Let's%20build%20something%20—%20via%20codewithsolo.com" class="btn btn-primary btn-lg">
+              📧 Send Transmission
+            </a>
+            <button class="btn btn-secondary btn-lg" id="copy-email-btn">
+              📋 Copy Email
+            </button>
+          </div>
+          <div class="contact-links">
+            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener" class="contact-link">Agency HQ ↗</a>
+            <a href="https://codewithsolo.com" class="contact-link">codewithsolo.com</a>
+          </div>
+          <p class="contact-encrypt mono muted" aria-hidden="true">AES-256 // SIMULATED</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="mono cyan">░▒▓ COD3BLACKAGENCY ▓▒░</span>
+        <p class="muted">— Silver Watkins</p>
+        <p class="muted small">Web Dev · Branding · Mobile Apps · AI/ML</p>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:silverwatkins@gmail.com">silverwatkins@gmail.com</a>
+        <a href="https://c3bai.vercel.app" target="_blank" rel="noopener">c3bai.vercel.app</a>
+        <a href="https://codewithsolo.com">codewithsolo.com</a>
+      </div>
+      <button class="footer-reboot mono" id="reboot-btn">> reboot ↑</button>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ TOAST ═══════════════ -->
+  <div class="toast" id="toast" hidden aria-live="polite">
+    <span class="mono" id="toast-msg">> address copied to clipboard</span>
+  </div>
+
+  <!-- ═══════════════ PWA INSTALL BANNER ═══════════════ -->
+  <div class="install-banner glass" id="install-banner" hidden>
+    <span class="mono">⬇ Install codewithsolo as an app</span>
+    <button class="btn btn-primary btn-sm" id="install-btn">Install</button>
+    <button class="install-dismiss" id="install-dismiss" aria-label="Dismiss">✕</button>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

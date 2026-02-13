@@ -1,0 +1,25 @@
+{
+  "name": "codewithsolo — Silver Watkins",
+  "short_name": "codewithsolo",
+  "description": "Solo developer shipping cinematic web experiences with AI-assisted velocity.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#1a1a2e",
+  "background_color": "#0b0b14",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"]
+}
