@@ -14,6 +14,11 @@
   const bootSkip = document.getElementById('boot-skip');
   const nav = document.getElementById('nav');
 
+  // DEBUG: Verify elements exist
+  if (!bootOverlay || !bootSkip) {
+    console.error('Boot elements missing:', { bootOverlay, bootSkip });
+  }
+
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const bootSeen = sessionStorage.getItem('bootSeen');
   let bootActive = false;
@@ -21,7 +26,11 @@
   let revealsInitialized = false;
 
   function endBoot() {
-    if (!bootActive) return;
+    if (!bootActive) {
+      console.log('[BOOT] endBoot skipped - bootActive is false');
+      return;
+    }
+    console.log('[BOOT] endBoot triggered');
     bootActive = false;
     bootTimers.forEach(clearTimeout);
     bootTimers = [];
@@ -30,9 +39,11 @@
     bootOverlay.style.pointerEvents = 'none';
     nav.classList.add('visible');
     document.body.style.overflow = '';
+    console.log('[BOOT] fade-out class added, pointer-events blocked');
     setTimeout(() => {
       bootOverlay.style.display = 'none';
       bootOverlay.style.pointerEvents = '';
+      console.log('[BOOT] display set to none, 600ms fade complete');
       if (!revealsInitialized) {
         revealsInitialized = true;
         initReveals();
@@ -41,6 +52,7 @@
   }
 
   function startBoot() {
+    console.log('[BOOT] startBoot called');
     bootTimers.forEach(clearTimeout);
     bootTimers = [];
     bootActive = true;
@@ -50,7 +62,9 @@
     bootBar.style.width = '0%';
     bootOverlay.classList.remove('fade-out');
     bootOverlay.style.display = '';
+    bootOverlay.style.pointerEvents = ''; // Reset pointer-events
     document.body.style.overflow = 'hidden';
+    console.log('[BOOT] boot sequence started, display restored');
 
     const totalDuration = 2800;
     lines.forEach((line) => {
@@ -69,14 +83,19 @@
     bootTimers.push(setTimeout(endBoot, totalDuration + 400));
   }
 
-  bootSkip.addEventListener('click', endBoot);
+  bootSkip.addEventListener('click', () => {
+    console.log('[BOOT] SKIP button clicked');
+    endBoot();
+  });
 
   if (prefersReducedMotion || bootSeen) {
+    console.log('[BOOT] Skipping boot sequence: reduced motion or already seen');
     bootOverlay.style.display = 'none';
     nav.classList.add('visible');
     revealsInitialized = true;
     initReveals();
   } else {
+    console.log('[BOOT] Starting boot sequence');
     startBoot();
   }
 
