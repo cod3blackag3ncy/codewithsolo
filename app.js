@@ -287,7 +287,10 @@
       else closeCmd();
     }
     if (e.key === 'Escape' && !cmdBackdrop.hidden) closeCmd();
-    if (e.key === 'Escape' && bootActive) endBoot();
+    if (e.key === 'Escape' && bootOverlay.style.display !== 'none') {
+      bootActive = true; // Force bootActive so endBoot can execute
+      endBoot();
+    }
   });
 
   // ── MOBILE NAV ──
