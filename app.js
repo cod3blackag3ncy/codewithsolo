@@ -18,6 +18,7 @@
   const bootSeen = sessionStorage.getItem('bootSeen');
   let bootActive = false;
   let bootTimers = [];
+  let revealsInitialized = false;
 
   function endBoot() {
     if (!bootActive) return;
@@ -30,14 +31,18 @@
     document.body.style.overflow = '';
     setTimeout(() => {
       bootOverlay.style.display = 'none';
-      initReveals();
+      if (!revealsInitialized) {
+        revealsInitialized = true;
+        initReveals();
+      }
     }, 600);
   }
 
   function startBoot() {
-    bootActive = true;
     bootTimers.forEach(clearTimeout);
     bootTimers = [];
+    bootActive = true;
+    sessionStorage.removeItem('bootSeen');
     const lines = bootBody.querySelectorAll('.boot-line');
     lines.forEach((line) => line.classList.remove('visible'));
     bootBar.style.width = '0%';
@@ -67,7 +72,8 @@
   if (prefersReducedMotion || bootSeen) {
     bootOverlay.style.display = 'none';
     nav.classList.add('visible');
-    document.addEventListener('DOMContentLoaded', initReveals);
+    revealsInitialized = true;
+    initReveals();
   } else {
     startBoot();
   }

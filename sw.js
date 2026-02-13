@@ -3,7 +3,7 @@
    Cache-first for shell, stale-while-revalidate
    ═══════════════════════════════════════════════ */
 
-const CACHE_NAME = 'codewithsolo-v2';
+const CACHE_NAME = 'codewithsolo-v3';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
