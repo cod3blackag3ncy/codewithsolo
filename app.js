@@ -16,41 +16,60 @@
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const bootSeen = sessionStorage.getItem('bootSeen');
+  let bootActive = false;
+  let bootTimers = [];
 
   function endBoot() {
+    if (!bootActive) return;
+    bootActive = false;
+    bootTimers.forEach(clearTimeout);
+    bootTimers = [];
     sessionStorage.setItem('bootSeen', 'true');
     bootOverlay.classList.add('fade-out');
     nav.classList.add('visible');
+    document.body.style.overflow = '';
     setTimeout(() => {
       bootOverlay.style.display = 'none';
       initReveals();
     }, 600);
   }
 
+  function startBoot() {
+    bootActive = true;
+    bootTimers.forEach(clearTimeout);
+    bootTimers = [];
+    const lines = bootBody.querySelectorAll('.boot-line');
+    lines.forEach((line) => line.classList.remove('visible'));
+    bootBar.style.width = '0%';
+    bootOverlay.classList.remove('fade-out');
+    bootOverlay.style.display = '';
+    document.body.style.overflow = 'hidden';
+
+    const totalDuration = 2800;
+    lines.forEach((line) => {
+      const delay = parseInt(line.dataset.delay, 10);
+      bootTimers.push(setTimeout(() => {
+        line.classList.add('visible');
+        const progress = Math.min(((delay + 400) / totalDuration) * 100, 100);
+        bootBar.style.width = progress + '%';
+      }, delay));
+    });
+
+    bootTimers.push(setTimeout(() => {
+      bootBar.style.width = '100%';
+    }, totalDuration - 300));
+
+    bootTimers.push(setTimeout(endBoot, totalDuration + 400));
+  }
+
+  bootSkip.addEventListener('click', endBoot);
+
   if (prefersReducedMotion || bootSeen) {
     bootOverlay.style.display = 'none';
     nav.classList.add('visible');
     document.addEventListener('DOMContentLoaded', initReveals);
   } else {
-    const lines = bootBody.querySelectorAll('.boot-line');
-    const totalDuration = 2800;
-    let progress = 0;
-
-    lines.forEach((line) => {
-      const delay = parseInt(line.dataset.delay, 10);
-      setTimeout(() => {
-        line.classList.add('visible');
-        progress = Math.min(((delay + 400) / totalDuration) * 100, 100);
-        bootBar.style.width = progress + '%';
-      }, delay);
-    });
-
-    setTimeout(() => {
-      bootBar.style.width = '100%';
-    }, totalDuration - 300);
-
-    setTimeout(endBoot, totalDuration + 400);
-    bootSkip.addEventListener('click', endBoot);
+    startBoot();
   }
 
   // ── SCROLL REVEALS (IntersectionObserver) ──
@@ -151,6 +170,9 @@
       case 'copy-email':
         copyEmail();
         break;
+      case 'reboot':
+        startBoot();
+        break;
       case 'install':
         if (deferredPrompt) {
           deferredPrompt.prompt();
@@ -202,6 +224,7 @@
       else closeCmd();
     }
     if (e.key === 'Escape' && !cmdBackdrop.hidden) closeCmd();
+    if (e.key === 'Escape' && bootActive) endBoot();
   });
 
   // ── MOBILE NAV ──
@@ -270,9 +293,10 @@
     }, 2500);
   }
 
-  // ── REBOOT (scroll to top) ──
+  // ── REBOOT (re-trigger boot sequence) ──
   document.getElementById('reboot-btn')?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(startBoot, 400);
   });
 
   // ── SMOOTH SCROLL for anchor links ──
