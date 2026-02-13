@@ -120,7 +120,8 @@
   if (prefersReducedMotion || bootSeen) {
     console.log('[BOOT] Skipping boot sequence: reduced motion=' + prefersReducedMotion + ', bootSeen=' + bootSeen);
     bootOverlay.style.display = 'none';
-    console.log('[BOOT] Set overlay display=none, overlay.style.display is now: ' + bootOverlay.style.display);
+    bootOverlay.style.visibility = 'hidden';
+    console.log('[BOOT] Set overlay display=none + visibility=hidden');
     nav.classList.add('visible');
     revealsInitialized = true;
     initReveals();
