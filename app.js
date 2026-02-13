@@ -83,6 +83,8 @@
     bootTimers = [];
     bootActive = true;
     sessionStorage.removeItem('bootSeen');
+    // Close command console overlay to prevent interference
+    cmdBackdrop.setAttribute('hidden', '');
     const lines = bootBody.querySelectorAll('.boot-line');
     lines.forEach((line) => line.classList.remove('visible'));
     bootBar.style.width = '0%';
@@ -91,7 +93,7 @@
     bootOverlay.style.visibility = 'visible'; // Restore visibility
     bootOverlay.style.pointerEvents = ''; // Reset pointer-events
     document.body.style.overflow = 'hidden';
-    console.log('[BOOT] boot sequence started, display/visibility/pointerEvents restored');
+    console.log('[BOOT] boot sequence started, cmd console closed, display/visibility/pointerEvents restored');
 
     const totalDuration = 2800;
     lines.forEach((line) => {
@@ -182,18 +184,21 @@
   let cmdActiveIdx = -1;
 
   function openCmd() {
-    cmdBackdrop.hidden = false;
+    if (bootActive) return; // Don't open cmd console during boot
+    cmdBackdrop.removeAttribute('hidden');
     cmdInput.value = '';
     filterCmd('');
     cmdActiveIdx = -1;
     setTimeout(() => cmdInput.focus(), 50);
     document.body.style.overflow = 'hidden';
+    console.log('[CMD] openCmd: hidden attr removed');
   }
 
   function closeCmd() {
-    cmdBackdrop.hidden = true;
+    cmdBackdrop.setAttribute('hidden', '');
     cmdInput.value = '';
     document.body.style.overflow = '';
+    console.log('[CMD] closeCmd: hidden attr set');
   }
 
   function filterCmd(query) {
@@ -286,10 +291,9 @@
       if (cmdBackdrop.hidden) openCmd();
       else closeCmd();
     }
-    if (e.key === 'Escape' && !cmdBackdrop.hidden) closeCmd();
-    if (e.key === 'Escape' && bootOverlay.style.display !== 'none') {
-      bootActive = true; // Force bootActive so endBoot can execute
-      endBoot();
+    if (e.key === 'Escape' && !cmdBackdrop.hidden) {
+      e.preventDefault();
+      closeCmd();
     }
   });
 

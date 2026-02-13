@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boot Execution Test</title>
+  <style>
+    body { margin: 0; padding: 20px; font-family: monospace; background: #f5f5f5; }
+    .test-box { background: white; border: 1px solid #ccc; padding: 20px; margin: 20px 0; border-radius: 4px; }
+    h2 { color: #333; margin-top: 0; }
+    pre { background: #f9f9f9; padding: 10px; overflow-x: auto; border-left: 3px solid #00cc88; }
+    .status { font-size: 14px; margin: 10px 0; }
+    .pass { color: green; }
+    .fail { color: red; }
+    .warn { color: orange; }
+  </style>
+</head>
+<body>
+
+<div class="test-box">
+  <h2>🧪 Boot Sequence Execution Test</h2>
+  <p>Testing if boot overlay shows/hides properly...</p>
+  
+  <div class="status" id="status1">⏳ Loading page...</div>
+  <div class="status" id="status2">⏳ Checking overlay...</div>
+  <div class="status" id="status3">⏳ Waiting for boot...</div>
+  <div class="status" id="status4">⏳ Testing SKIP button...</div>
+  <div class="status" id="status5">⏳ Checking final state...</div>
+</div>
+
+<div class="test-box">
+  <h2>📋 Execution Log</h2>
+  <pre id="log"></pre>
+</div>
+
+<script>
+  const log = document.getElementById('log');
+  const statuses = [
+    document.getElementById('status1'),
+    document.getElementById('status2'),
+    document.getElementById('status3'),
+    document.getElementById('status4'),
+    document.getElementById('status5'),
+  ];
+  
+  function updateStatus(index, message, type = 'warn') {
+    statuses[index].textContent = message;
+    statuses[index].className = `status ${type}`;
+    appendLog(`[${index+1}] ${message}`);
+  }
+  
+  function appendLog(msg) {
+    log.textContent += msg + '\n';
+    log.parentElement.scrollTop = log.parentElement.scrollHeight;
+  }
+  
+  // Test 1: Page loaded
+  updateStatus(0, '✅ Test page loaded', 'pass');
+  
+  // Test 2: Check if boot overlay element exists in this page
+  const bootOverlay = document.getElementById('boot-overlay');
+  if (bootOverlay) {
+    updateStatus(1, '✅ boot-overlay element found', 'pass');
+  } else {
+    updateStatus(1, '❌ boot-overlay element NOT found', 'fail');
+  }
+  
+  // Test 3: Check overlay initial state
+  if (bootOverlay) {
+    const display = window.getComputedStyle(bootOverlay).display;
+    appendLog(`Initial overlay display: ${display}`);
+    if (display === 'flex' || display === 'block') {
+      updateStatus(2, '✅ Overlay is visible initially', 'pass');
+    } else {
+      updateStatus(2, '⚠️  Overlay might be hidden initially', 'warn');
+    }
+  }
+  
+  // Test 4: Wait for boot sequence
+  appendLog('Waiting 3500ms for boot sequence to complete...');
+  setTimeout(() => {
+    if (bootOverlay) {
+      const display = window.getComputedStyle(bootOverlay).display;
+      const visibility = window.getComputedStyle(bootOverlay).visibility;
+      const opacity = window.getComputedStyle(bootOverlay).opacity;
+      
+      appendLog(`After 3500ms: display=${display}, visibility=${visibility}, opacity=${opacity}`);
+      
+      if (display === 'none' || visibility === 'hidden') {
+        updateStatus(3, '✅ Overlay closed after auto-timeout', 'pass');
+      } else {
+        updateStatus(3, '❌ Overlay still visible after timeout', 'fail');
+      }
+    }
+    
+    // Test 5: Check for any JS errors in boot logger
+    const bootLogger = document.getElementById('boot-logger');
+    if (bootLogger) {
+      appendLog('boot-logger found');
+      const logs = bootLogger.innerText;
+      appendLog('Logger content: ' + logs);
+      updateStatus(4, '✅ Boot logger present with logs', 'pass');
+    } else {
+      updateStatus(4, '⚠️  No boot logger found', 'warn');
+    }
+    
+  }, 3500);
+  
+  appendLog('Test started');
+</script>
+
+</body>
+</html>

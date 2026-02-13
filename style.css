@@ -290,13 +290,22 @@ ul { list-style: none; }
 .cmd-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 9999;
+  z-index: 8500;
   background: rgba(0,0,0,.6);
   display: flex;
   align-items: flex-start;
   justify-content: center;
   padding-top: 18vh;
   animation: fade-in .2s;
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s, visibility .2s;
+}
+.cmd-backdrop:not([hidden]) {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
 }
 .cmd-modal {
   width: 90%;

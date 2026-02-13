@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.cmd-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 8500;
+  background: rgba(0,0,0,.6);
+  visibility: hidden;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .2s, visibility .2s;
+}
+.cmd-backdrop:not([hidden]) {
+  visibility: visible;
+  pointer-events: auto;
+  opacity: 1;
+}
+.cmd-modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 100px auto;
+  color: black;
+}
+</style>
+</head>
+<body>
+<button onclick="openCmd()">Open</button>
+<button onclick="closeCmd()">Close</button>
+<div class="cmd-backdrop" id="cmd-backdrop" hidden>
+  <div class="cmd-modal">Command Console</div>
+</div>
+<pre id="log"></pre>
+<script>
+function log(msg) {
+  const el = document.getElementById('log');
+  el.textContent += msg + '\n';
+  console.log(msg);
+}
+
+function openCmd() {
+  const backdrop = document.getElementById('cmd-backdrop');
+  backdrop.hidden = false;
+  log('openCmd: hidden=' + backdrop.hidden);
+  log('openCmd: hasAttribute hidden=' + backdrop.hasAttribute('hidden'));
+}
+
+function closeCmd() {
+  const backdrop = document.getElementById('cmd-backdrop');
+  backdrop.hidden = true;
+  log('closeCmd: hidden=' + backdrop.hidden);
+  log('closeCmd: hasAttribute hidden=' + backdrop.hasAttribute('hidden'));
+}
+</script>
+</body>
+</html>

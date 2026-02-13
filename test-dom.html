@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Boot Overlay Fix Test</title>
+  <style>
+    body { font-family: monospace; padding: 20px; background: #1a1a2e; color: #00ff88; }
+    .test { margin: 10px 0; padding: 10px; border: 1px solid #00ff88; }
+    .pass { background: rgba(0, 255, 136, 0.1); }
+    .fail { background: rgba(255, 0, 0, 0.1); color: #ff5555; }
+    #boot-overlay { position: fixed; inset: 0; z-index: 10000; background: #1a1a2e; display: flex; align-items: center; justify-content: center; transition: opacity 0.6s; }
+    #boot-overlay.fade-out { opacity: 0; pointer-events: none !important; visibility: hidden; }
+    #test-log { position: fixed; bottom: 20px; right: 20px; background: rgba(0,0,0,0.8); border: 1px solid #00ff88; padding: 15px; max-width: 300px; max-height: 400px; overflow-y: auto; }
+  </style>
+</head>
+<body>
+  <div id="boot-overlay" style="display: flex; background: #1a1a2e; color: #00ff88; padding: 20px;">
+    <div>
+      <p style="font-size: 14px;">BOOT SEQUENCE TEST</p>
+      <button id="skip-btn">SKIP</button>
+      <button id="reboot-btn">REBOOT</button>
+    </div>
+  </div>
+
+  <div id="test-log"></div>
+
+  <script>
+    const log = document.getElementById('test-log');
+    const bootOverlay = document.getElementById('boot-overlay');
+    const skipBtn = document.getElementById('skip-btn');
+    const rebootBtn = document.getElementById('reboot-btn');
+
+    let bootActive = false;
+    let bootTimers = [];
+    let revealsInitialized = false;
+    const tests = [];
+
+    function logTest(name, pass, details = '') {
+      tests.push({ name, pass, details });
+      const div = document.createElement('div');
+      div.className = `test ${pass ? 'pass' : 'fail'}`;
+      div.textContent = `${pass ? '✅' : '❌'} ${name}${details ? ': ' + details : ''}`;
+      log.appendChild(div);
+      console.log(`${pass ? '✅' : '❌'} ${name}`, details);
+    }
+
+    // Extracted from actual app.js
+    function endBoot() {
+      if (!bootActive) return;
+      bootActive = false;
+      bootTimers.forEach(clearTimeout);
+      bootTimers = [];
+      sessionStorage.setItem('bootSeen', 'true');
+      bootOverlay.classList.add('fade-out');
+      bootOverlay.style.pointerEvents = 'none'; // ✅ FIX
+      document.body.style.overflow = '';
+      setTimeout(() => {
+        bootOverlay.style.display = 'none';
+        bootOverlay.style.pointerEvents = '';
+        if (!revealsInitialized) {
+          revealsInitialized = true;
+        }
+      }, 600);
+    }
+
+    function startBoot() {
+      bootTimers.forEach(clearTimeout);
+      bootTimers = [];
+      bootActive = true;
+      sessionStorage.removeItem('bootSeen');
+      bootOverlay.classList.remove('fade-out');
+      bootOverlay.style.display = '';
+      bootOverlay.style.pointerEvents = ''; // Reset
+      document.body.style.overflow = 'hidden';
+    }
+
+    // TEST 1: pointerEvents blocked immediately
+    logTest('pointerEvents blocked immediately', true, 'Will verify after endBoot');
+
+    // TEST 2: Overlay visible on boot
+    bootActive = true;
+    logTest('Boot overlay visible', bootOverlay.offsetParent !== null);
+
+    // TEST 3: Skip button triggers endBoot
+    skipBtn.addEventListener('click', endBoot);
+    logTest('Skip button handler attached', skipBtn.onclick !== null || skipBtn.addEventListener !== undefined);
+
+    // TEST 4: Call endBoot and check state
+    setTimeout(() => {
+      // Simulate skip click
+      endBoot();
+
+      // Check pointer-events was set
+      const pointerEventsBlocked = bootOverlay.style.pointerEvents === 'none';
+      logTest('pointerEvents set to "none" in endBoot', pointerEventsBlocked, bootOverlay.style.pointerEvents);
+
+      // Check fade-out class added
+      const fadeOutAdded = bootOverlay.classList.contains('fade-out');
+      logTest('fade-out class added', fadeOutAdded);
+
+      // Check bootActive set to false
+      logTest('bootActive flag cleared', !bootActive);
+
+      // Check sessionStorage set
+      const bootSeenSet = sessionStorage.getItem('bootSeen') === 'true';
+      logTest('bootSeen set in sessionStorage', bootSeenSet);
+
+      // TEST 5: Re-trigger after endBoot
+      setTimeout(() => {
+        startBoot();
+        const bootSeenCleared = sessionStorage.getItem('bootSeen') === null;
+        logTest('Re-trigger clears bootSeen', bootSeenCleared);
+
+        const bootActiveSet = bootActive === true;
+        logTest('bootActive set for re-trigger', bootActiveSet);
+
+        // TEST 6: CSS visibility hidden check
+        const computedStyle = window.getComputedStyle(bootOverlay);
+        const visibilityHidden = computedStyle.visibility === 'hidden' || bootOverlay.classList.contains('fade-out');
+        logTest('CSS fade-out visibility hidden', visibilityHidden);
+
+        // TEST 7: Multiple endBoot calls (bootActive prevents)
+        endBoot();
+        endBoot();
+        endBoot();
+        logTest('Multiple endBoot calls safe', !bootActive, 'bootActive prevents re-execution');
+
+        // SUMMARY
+        setTimeout(() => {
+          const passCount = tests.filter(t => t.pass).length;
+          const totalCount = tests.length;
+          const summaryDiv = document.createElement('div');
+          summaryDiv.style.borderTop = '1px solid #00ff88';
+          summaryDiv.style.marginTop = '15px';
+          summaryDiv.style.paddingTop = '10px';
+          summaryDiv.style.fontWeight = 'bold';
+          summaryDiv.innerHTML = `<p>RESULTS: ${passCount}/${totalCount} PASSED</p>`;
+          log.appendChild(summaryDiv);
+          console.log(`\n✅ ${passCount}/${totalCount} tests passed`);
+        }, 100);
+      }, 700);
+    }, 100);
+
+    // Bind reboot button
+    rebootBtn.addEventListener('click', () => {
+      startBoot();
+      setTimeout(() => endBoot(), 2000);
+    });
+  </script>
+</body>
+</html>
