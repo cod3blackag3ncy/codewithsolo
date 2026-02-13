@@ -18,6 +18,9 @@
 </head>
 <body>
 
+  <!-- ═══════════════ SKIP LINK ═══════════════ -->
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
   <!-- ═══════════════ BOOT OVERLAY ═══════════════ -->
   <div id="boot-overlay" class="boot-overlay" aria-live="polite">
     <div class="boot-panel glass neo-border">
@@ -49,8 +52,9 @@
 
   <!-- ═══════════════ COMMAND PALETTE ═══════════════ -->
   <div class="cmd-backdrop" id="cmd-backdrop" hidden>
-    <div class="cmd-modal glass neo-border" role="dialog" aria-label="Command Console">
+    <div class="cmd-modal glass neo-border" role="dialog" aria-modal="true" aria-labelledby="cmd-title">
       <div class="cmd-header">
+        <h2 id="cmd-title" class="mono muted" style="display:none;">COMMAND CONSOLE</h2>
         <span class="mono muted">COMMAND CONSOLE</span>
         <kbd>ESC</kbd>
       </div>
@@ -211,7 +215,7 @@
               <div class="tele-row"><span class="muted">INFRA</span><span>Vercel · Upstash Redis</span></div>
               <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
             </div>
-            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener" class="mission-link btn btn-primary">→ c3bai.vercel.app</a>
+            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary">→ c3bai.vercel.app</a>
           </article>
 
           <!-- Mission 02: Taste of Gratitude -->
@@ -233,7 +237,7 @@
               <div class="tele-row"><span class="muted">INFRA</span><span>Custom Domain</span></div>
               <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
             </div>
-            <a href="https://tasteofgratitude.shop" target="_blank" rel="noopener" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ tasteofgratitude.shop</a>
+            <a href="https://tasteofgratitude.shop" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ tasteofgratitude.shop</a>
           </article>
 
           <!-- Mission 03: TradeAlerts -->
@@ -255,7 +259,7 @@
               <div class="tele-row"><span class="muted">PLAN</span><span>$49.99/mo Pro</span></div>
               <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
             </div>
-            <a href="https://ktradealerts.vercel.app" target="_blank" rel="noopener" class="mission-link btn btn-primary">→ ktradealerts.vercel.app</a>
+            <a href="https://ktradealerts.vercel.app" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary">→ ktradealerts.vercel.app</a>
           </article>
 
           <!-- Mission 04: Beltline Golf -->
@@ -277,7 +281,7 @@
               <div class="tele-row"><span class="muted">INFRA</span><span>Custom Domain</span></div>
               <div class="tele-row"><span class="muted">STATUS</span><span class="cyan">CASE STUDY</span></div>
             </div>
-            <a href="https://beltlinegolf.com" target="_blank" rel="noopener" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ beltlinegolf.com</a>
+            <a href="https://beltlinegolf.com" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ beltlinegolf.com</a>
           </article>
 
         </div>
@@ -293,13 +297,13 @@
         <div class="service-accordion reveal" style="--delay:.2s">
 
           <div class="svc-module" data-module="landing">
-            <button class="svc-header" aria-expanded="false">
+            <button class="svc-header" aria-expanded="false" aria-controls="svc-landing">
               <span class="svc-led"></span>
               <span class="svc-name">Landing Systems</span>
               <span class="svc-outcome mono muted">High-conversion, cinematic web experiences</span>
               <span class="svc-toggle">+</span>
             </button>
-            <div class="svc-body">
+            <div class="svc-body" id="svc-landing" role="region" aria-labelledby="svc-landing-title">
               <p>Custom-designed landing pages that convert visitors into clients. Built with performance-first architecture, PWA support, and mobile-optimized layouts.</p>
               <div class="svc-spec mono">
                 <span>DELIVERABLES: Design + Dev + Deploy</span>
@@ -309,13 +313,13 @@
           </div>
 
           <div class="svc-module" data-module="pwa">
-            <button class="svc-header" aria-expanded="false">
+            <button class="svc-header" aria-expanded="false" aria-controls="svc-pwa">
               <span class="svc-led"></span>
               <span class="svc-name">PWA Deployments</span>
               <span class="svc-outcome mono muted">Offline-ready, installable applications</span>
               <span class="svc-toggle">+</span>
             </button>
-            <div class="svc-body">
+            <div class="svc-body" id="svc-pwa" role="region">
               <p>Progressive Web Apps with service workers, manifest configuration, offline fallbacks, and push notification support. Ship to any device.</p>
               <div class="svc-spec mono">
                 <span>DELIVERABLES: PWA + Service Worker + Manifest</span>
@@ -325,13 +329,13 @@
           </div>
 
           <div class="svc-module" data-module="ecom">
-            <button class="svc-header" aria-expanded="false">
+            <button class="svc-header" aria-expanded="false" aria-controls="svc-ecom">
               <span class="svc-led"></span>
               <span class="svc-name">E-Commerce Builds</span>
               <span class="svc-outcome mono muted">Complete digital storefronts with payment systems</span>
               <span class="svc-toggle">+</span>
             </button>
-            <div class="svc-body">
+            <div class="svc-body" id="svc-ecom" role="region">
               <p>Full e-commerce solutions with Stripe integration, inventory management, digital menus, and branded checkout flows. From concept to revenue.</p>
               <div class="svc-spec mono">
                 <span>DELIVERABLES: Store + Payments + Admin</span>
@@ -341,13 +345,13 @@
           </div>
 
           <div class="svc-module" data-module="mobile">
-            <button class="svc-header" aria-expanded="false">
+            <button class="svc-header" aria-expanded="false" aria-controls="svc-mobile">
               <span class="svc-led"></span>
               <span class="svc-name">Mobile Apps</span>
               <span class="svc-outcome mono muted">Cross-platform native experiences</span>
               <span class="svc-toggle">+</span>
             </button>
-            <div class="svc-body">
+            <div class="svc-body" id="svc-mobile" role="region">
               <p>React Native and PWA mobile applications with push notifications, real-time data, subscription systems, and offline support.</p>
               <div class="svc-spec mono">
                 <span>DELIVERABLES: iOS + Android + Backend</span>
@@ -357,13 +361,13 @@
           </div>
 
           <div class="svc-module" data-module="automation">
-            <button class="svc-header" aria-expanded="false">
+            <button class="svc-header" aria-expanded="false" aria-controls="svc-automation">
               <span class="svc-led"></span>
               <span class="svc-name">Automation & AI</span>
               <span class="svc-outcome mono muted">AI-powered workflows, bots, and integrations</span>
               <span class="svc-toggle">+</span>
             </button>
-            <div class="svc-body">
+            <div class="svc-body" id="svc-automation" role="region">
               <p>Custom automation pipelines, AI/ML integrations, chatbots, email marketing systems, and DevOps infrastructure. Let machines handle the repetitive work.</p>
               <div class="svc-spec mono">
                 <span>DELIVERABLES: System + Integration + Docs</span>
@@ -373,13 +377,13 @@
           </div>
 
           <div class="svc-module" data-module="brand">
-            <button class="svc-header" aria-expanded="false">
+            <button class="svc-header" aria-expanded="false" aria-controls="svc-brand">
               <span class="svc-led"></span>
               <span class="svc-name">Brand Identity</span>
               <span class="svc-outcome mono muted">Logo, palette, typography, brand guidelines</span>
               <span class="svc-toggle">+</span>
             </button>
-            <div class="svc-body">
+            <div class="svc-body" id="svc-brand" role="region">
               <p>Complete brand identity packages — logo design, color systems, typography pairing, email templates, and brand guideline documents. Your identity, crafted to command attention.</p>
               <div class="svc-spec mono">
                 <span>DELIVERABLES: Logo + Guidelines + Templates</span>
@@ -433,7 +437,7 @@
             </button>
           </div>
           <div class="contact-links">
-            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener" class="contact-link">Agency HQ ↗</a>
+            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer" class="contact-link">Agency HQ ↗</a>
             <a href="https://codewithsolo.com" class="contact-link">codewithsolo.com</a>
           </div>
           <p class="contact-encrypt mono muted" aria-hidden="true">AES-256 // SIMULATED</p>
@@ -453,7 +457,7 @@
       </div>
       <div class="footer-links">
         <a href="mailto:silverwatkins@gmail.com">silverwatkins@gmail.com</a>
-        <a href="https://c3bai.vercel.app" target="_blank" rel="noopener">c3bai.vercel.app</a>
+        <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer">c3bai.vercel.app</a>
         <a href="https://codewithsolo.com">codewithsolo.com</a>
       </div>
       <button class="footer-reboot mono" id="reboot-btn">> reboot ↑</button>

@@ -190,8 +190,11 @@
   const mobileCmdBtn = document.getElementById('mobile-cmd-btn');
   let cmdActiveIdx = -1;
 
+  let lastFocusedElement = null;
+
   function openCmd() {
     if (bootActive) return; // Don't open cmd console during boot
+    lastFocusedElement = document.activeElement;
     cmdBackdrop.removeAttribute('hidden');
     cmdInput.value = '';
     filterCmd('');
@@ -205,6 +208,9 @@
     cmdBackdrop.setAttribute('hidden', '');
     cmdInput.value = '';
     document.body.style.overflow = '';
+    if (lastFocusedElement && lastFocusedElement.focus) {
+      lastFocusedElement.focus();
+    }
     console.log('[CMD] closeCmd: hidden attr set');
   }
 
@@ -426,7 +432,9 @@
   // ── SERVICE WORKER REGISTRATION ──
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(() => {});
+      navigator.serviceWorker.register('/sw.js').catch((err) => {
+        if (DEBUG) console.warn('[SW] Registration failed:', err);
+      });
     });
   }
 

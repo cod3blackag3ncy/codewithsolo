@@ -53,6 +53,20 @@ ul { list-style: none; }
 .small { font-size: .8rem; }
 .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
+/* ── SKIP LINK ── */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--cyan);
+  color: var(--navy-deep);
+  padding: 8px 16px;
+  z-index: 10002;
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus { top: 0; }
+
 /* ── GLASS ── */
 .glass {
   background: var(--glass-bg);
@@ -699,7 +713,7 @@ section { padding: 100px 0; scroll-margin-top: 80px; }
   padding: 0 22px;
 }
 .svc-module.open .svc-body {
-  max-height: 200px;
+  max-height: 500px;
   padding: 0 22px 20px;
 }
 .svc-body p {
