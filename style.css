@@ -209,11 +209,10 @@ ul { list-style: none; }
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid var(--hairline);
-  opacity: 0;
-  transform: translateY(-10px);
+  opacity: 1;
+  transform: none;
   transition: opacity .5s var(--ease), transform .5s var(--ease);
 }
-.nav.visible { opacity: 1; transform: none; }
 .nav-brand {
   display: flex;
   align-items: center;
