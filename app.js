@@ -7,31 +7,42 @@
 (function () {
   'use strict';
 
-  // ── BOOT LOGGER (Capture logs to DOM for debugging) ──
-  const logContainer = document.createElement('div');
-  logContainer.id = 'boot-logger';
-  logContainer.style.cssText = 'position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.9); color: #00ff88; font-family: monospace; font-size: 11px; padding: 12px; max-width: 300px; max-height: 200px; overflow-y: auto; z-index: 99999; border: 1px solid #00ff88; border-radius: 4px;';
-  document.body.appendChild(logContainer);
+  const DEBUG = new URLSearchParams(location.search).has('debug');
+
+  // ── BOOT LOGGER (Debug only) ──
+  const logContainer = DEBUG ? (() => {
+    const el = document.createElement('div');
+    el.id = 'boot-logger';
+    el.style.cssText = 'position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.9); color: #00ff88; font-family: monospace; font-size: 11px; padding: 12px; max-width: 300px; max-height: 200px; overflow-y: auto; z-index: 99999; border: 1px solid #00ff88; border-radius: 4px;';
+    document.body.appendChild(el);
+    return el;
+  })() : null;
 
   const originalLog = console.log;
   console.log = function(...args) {
     originalLog(...args);
-    const msg = args.join(' ');
-    if (msg.includes('[BOOT')) {
-      const logItem = document.createElement('div');
-      logItem.style.cssText = 'padding: 3px 0; border-bottom: 1px solid rgba(0,255,136,0.2);';
-      logItem.textContent = msg;
-      logContainer.appendChild(logItem);
-      logContainer.scrollTop = logContainer.scrollHeight;
+    if (DEBUG) {
+      const msg = args.join(' ');
+      if (msg.includes('[BOOT')) {
+        const logItem = document.createElement('div');
+        logItem.style.cssText = 'padding: 3px 0; border-bottom: 1px solid rgba(0,255,136,0.2);';
+        logItem.textContent = msg;
+        logContainer.appendChild(logItem);
+        logContainer.scrollTop = logContainer.scrollHeight;
+      }
     }
   };
 
-  // ── BOOT SEQUENCE ──
+  // ── EARLY DOM LOOKUPS (prevent TDZ issues) ──
   const bootOverlay = document.getElementById('boot-overlay');
   const bootBody = document.getElementById('boot-body');
   const bootBar = document.getElementById('boot-progress-bar');
   const bootSkip = document.getElementById('boot-skip');
   const nav = document.getElementById('nav');
+  const cmdBackdrop = document.getElementById('cmd-backdrop');
+  const cmdInput = document.getElementById('cmd-input');
+  const cmdList = document.getElementById('cmd-list');
+  const cmdItems = cmdList ? cmdList.querySelectorAll('li') : [];
 
   // DEBUG: Verify elements exist
   if (!bootOverlay || !bootSkip) {
@@ -174,11 +185,7 @@
     }
   }
 
-  // ── COMMAND PALETTE ──
-  const cmdBackdrop = document.getElementById('cmd-backdrop');
-  const cmdInput = document.getElementById('cmd-input');
-  const cmdList = document.getElementById('cmd-list');
-  const cmdItems = cmdList.querySelectorAll('li');
+  // ── COMMAND PALETTE (elements already loaded above) ──
   const navCmdBtn = document.getElementById('nav-cmd-btn');
   const mobileCmdBtn = document.getElementById('mobile-cmd-btn');
   let cmdActiveIdx = -1;
@@ -219,21 +226,23 @@
   function execCmd(action) {
     closeCmd();
     closeMobileNav();
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const behavior = reduce ? 'auto' : 'smooth';
     switch (action) {
       case 'hero':
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior });
         break;
       case 'projects':
-        document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('projects')?.scrollIntoView({ behavior });
         break;
       case 'services':
-        document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('services')?.scrollIntoView({ behavior });
         break;
       case 'workflow':
-        document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('workflow')?.scrollIntoView({ behavior });
         break;
       case 'contact':
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        document.getElementById('contact')?.scrollIntoView({ behavior });
         break;
       case 'copy-email':
         copyEmail();
@@ -303,10 +312,13 @@
 
   function closeMobileNav() {
     mobileNav.hidden = true;
+    navToggle?.setAttribute('aria-expanded', 'false');
   }
 
   navToggle?.addEventListener('click', () => {
-    mobileNav.hidden = !mobileNav.hidden;
+    const isOpen = !mobileNav.hidden;
+    mobileNav.hidden = isOpen;
+    navToggle.setAttribute('aria-expanded', !isOpen);
   });
 
   mobileNav?.querySelectorAll('.mobile-nav-link').forEach((link) => {
@@ -365,19 +377,23 @@
 
   // ── REBOOT (re-trigger boot sequence) ──
   document.getElementById('reboot-btn')?.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
     setTimeout(startBoot, 400);
   });
 
   // ── SMOOTH SCROLL for anchor links ──
   document.querySelectorAll('a[href^="#"]').forEach((link) => {
     link.addEventListener('click', (e) => {
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) {
-        e.preventDefault();
-        target.scrollIntoView({ behavior: 'smooth' });
-        closeMobileNav();
-      }
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return; // allow default
+      const id = href.slice(1);
+      const target = document.getElementById(id);
+      if (!target) return;
+      e.preventDefault();
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      target.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+      closeMobileNav();
     });
   });
 

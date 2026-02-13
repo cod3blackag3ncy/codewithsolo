@@ -25,6 +25,12 @@
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+:focus { outline: none; }
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 body {
   font-family: var(--font-sans);
   background: var(--navy-deep);
@@ -875,6 +881,8 @@ section { padding: 100px 0; }
 
 /* ═══════════════ RESPONSIVE ═══════════════ */
 @media (max-width: 768px) {
+  .glass { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
+  .reveal { filter: none; }
   .nav-links { display: none; }
   .nav-mobile-toggle { display: flex; }
   .hero { padding: 100px 20px 60px; }
@@ -904,6 +912,7 @@ section { padding: 100px 0; }
 
 /* ═══════════════ REDUCED MOTION ═══════════════ */
 @media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
