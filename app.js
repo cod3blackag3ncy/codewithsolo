@@ -7,6 +7,25 @@
 (function () {
   'use strict';
 
+  // ── BOOT LOGGER (Capture logs to DOM for debugging) ──
+  const logContainer = document.createElement('div');
+  logContainer.id = 'boot-logger';
+  logContainer.style.cssText = 'position: fixed; bottom: 20px; left: 20px; background: rgba(0,0,0,0.9); color: #00ff88; font-family: monospace; font-size: 11px; padding: 12px; max-width: 300px; max-height: 200px; overflow-y: auto; z-index: 99999; border: 1px solid #00ff88; border-radius: 4px;';
+  document.body.appendChild(logContainer);
+
+  const originalLog = console.log;
+  console.log = function(...args) {
+    originalLog(...args);
+    const msg = args.join(' ');
+    if (msg.includes('[BOOT')) {
+      const logItem = document.createElement('div');
+      logItem.style.cssText = 'padding: 3px 0; border-bottom: 1px solid rgba(0,255,136,0.2);';
+      logItem.textContent = msg;
+      logContainer.appendChild(logItem);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+  };
+
   // ── BOOT SEQUENCE ──
   const bootOverlay = document.getElementById('boot-overlay');
   const bootBody = document.getElementById('boot-body');
