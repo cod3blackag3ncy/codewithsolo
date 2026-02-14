@@ -412,21 +412,35 @@
   window.addEventListener('beforeinstallprompt', (e) => {
     e.preventDefault();
     deferredPrompt = e;
-    installBanner.hidden = false;
+    if (installBanner) installBanner.hidden = false;
+  });
+
+  window.addEventListener('appinstalled', () => {
+    if (installBanner) installBanner.hidden = true;
+    deferredPrompt = null;
+    if (DEBUG) console.log('[PWA] App installed successfully');
   });
 
   installBtn?.addEventListener('click', () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => {
+      deferredPrompt.userChoice.then((choiceResult) => {
+        if (choiceResult.outcome === 'accepted') {
+          if (DEBUG) console.log('[PWA] User accepted install');
+        } else {
+          if (DEBUG) console.log('[PWA] User dismissed install');
+        }
         deferredPrompt = null;
-        installBanner.hidden = true;
+      }).catch((err) => {
+        if (DEBUG) console.warn('[PWA] Install error:', err);
       });
+    } else {
+      showToast('> PWA already installed or not available');
     }
   });
 
   installDismiss?.addEventListener('click', () => {
-    installBanner.hidden = true;
+    if (installBanner) installBanner.hidden = true;
   });
 
   // ── SERVICE WORKER REGISTRATION ──
