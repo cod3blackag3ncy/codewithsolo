@@ -3,12 +3,13 @@
    Cache-first for shell, stale-while-revalidate
    ═══════════════════════════════════════════════ */
 
-const CACHE_NAME = 'codewithsolo-v3';
+const CACHE_NAME = 'codewithsolo-v4';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
   '/style.css',
   '/app.js',
+  '/cache-bust.js',
   '/manifest.webmanifest',
   '/icons/favicon.svg',
   '/icons/icon-192.png',
