@@ -225,7 +225,7 @@ ul { list-style: none; }
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 28px;
+  padding: max(16px, env(safe-area-inset-top)) max(28px, env(safe-area-inset-right)) 16px max(28px, env(safe-area-inset-left));
   background: rgba(11,11,20,.95);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -870,6 +870,42 @@ section { padding: 100px 0; scroll-margin-top: 70px; }
   font-size: 1rem;
   padding: 4px;
 }
+
+/* iOS Install Instructions */
+.install-instructions {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9000;
+  padding: 20px 24px;
+  max-width: 320px;
+  animation: slide-up .4s var(--ease);
+}
+.install-instructions h3 {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: var(--cyan);
+}
+.install-instructions ol {
+  color: var(--muted);
+}
+.install-instructions li {
+  margin-bottom: 8px;
+}
+.install-instructions strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.install-content {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.install-content button {
+  align-self: flex-end;
+}
+
 @keyframes slide-up {
   from { opacity: 0; transform: translateX(-50%) translateY(20px); }
   to { opacity: 1; transform: translateX(-50%) translateY(0); }

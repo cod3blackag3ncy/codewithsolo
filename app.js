@@ -8,6 +8,8 @@
   'use strict';
 
   const DEBUG = new URLSearchParams(location.search).has('debug');
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+  const isStandalone = window.navigator.standalone === true;
 
   // ── BOOT LOGGER (Debug only) ──
   const logContainer = DEBUG ? (() => {
@@ -408,39 +410,53 @@
   const installBanner = document.getElementById('install-banner');
   const installBtn = document.getElementById('install-btn');
   const installDismiss = document.getElementById('install-dismiss');
+  const iosInstructions = document.getElementById('ios-install-instructions');
+  const iosInstructionsDismiss = document.getElementById('ios-instructions-dismiss');
 
-  window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    if (installBanner) installBanner.hidden = false;
-  });
+  // Show iOS instructions if on iOS and not standalone
+  if (isIOS && !isStandalone) {
+    if (DEBUG) console.log('[PWA] iOS device detected, showing install instructions');
+    if (iosInstructions) iosInstructions.hidden = false;
+  } else if (!isIOS && !isStandalone) {
+    // Android/Desktop — show beforeinstallprompt banner
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBanner) installBanner.hidden = false;
+    });
 
-  window.addEventListener('appinstalled', () => {
-    if (installBanner) installBanner.hidden = true;
-    deferredPrompt = null;
-    if (DEBUG) console.log('[PWA] App installed successfully');
-  });
+    window.addEventListener('appinstalled', () => {
+      if (installBanner) installBanner.hidden = true;
+      deferredPrompt = null;
+      if (DEBUG) console.log('[PWA] App installed successfully');
+    });
 
-  installBtn?.addEventListener('click', () => {
-    if (deferredPrompt) {
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then((choiceResult) => {
-        if (choiceResult.outcome === 'accepted') {
-          if (DEBUG) console.log('[PWA] User accepted install');
-        } else {
-          if (DEBUG) console.log('[PWA] User dismissed install');
-        }
-        deferredPrompt = null;
-      }).catch((err) => {
-        if (DEBUG) console.warn('[PWA] Install error:', err);
-      });
-    } else {
-      showToast('> PWA already installed or not available');
-    }
-  });
+    installBtn?.addEventListener('click', () => {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            if (DEBUG) console.log('[PWA] User accepted install');
+          } else {
+            if (DEBUG) console.log('[PWA] User dismissed install');
+          }
+          deferredPrompt = null;
+        }).catch((err) => {
+          if (DEBUG) console.warn('[PWA] Install error:', err);
+        });
+      } else {
+        showToast('> PWA already installed or not available');
+      }
+    });
 
-  installDismiss?.addEventListener('click', () => {
-    if (installBanner) installBanner.hidden = true;
+    installDismiss?.addEventListener('click', () => {
+      if (installBanner) installBanner.hidden = true;
+    });
+  }
+
+  // iOS instructions dismiss
+  iosInstructionsDismiss?.addEventListener('click', () => {
+    if (iosInstructions) iosInstructions.hidden = true;
   });
 
   // ── SERVICE WORKER REGISTRATION ──
