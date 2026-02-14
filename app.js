@@ -356,10 +356,10 @@
   const copyBtn = document.getElementById('copy-email-btn');
 
   function copyEmail() {
-    navigator.clipboard.writeText('silverwatkins@gmail.com').then(() => {
-      showToast('> silverwatkins@gmail.com copied to clipboard');
+    navigator.clipboard.writeText('cod3blackagency@gmail.com').then(() => {
+      showToast('> cod3blackagency@gmail.com copied to clipboard');
     }).catch(() => {
-      showToast('> silverwatkins@gmail.com');
+      showToast('> cod3blackagency@gmail.com');
     });
   }
 
