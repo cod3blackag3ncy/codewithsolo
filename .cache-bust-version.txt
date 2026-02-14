@@ -1,0 +1,5 @@
+# Force cache invalidation
+# Updated: Feb 14 2026 05:30 UTC
+# Real fix: mobile-nav was position:fixed with z-index:8999, blocking content
+# Changed to position:sticky with z-index:99, added [hidden] rule
+v5-mobile-nav-fix
