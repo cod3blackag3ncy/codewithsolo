@@ -249,8 +249,11 @@
       case 'workflow':
         document.getElementById('workflow')?.scrollIntoView({ behavior });
         break;
-      case 'contact':
-        document.getElementById('contact')?.scrollIntoView({ behavior });
+      case 'pricing':
+        document.getElementById('pricing')?.scrollIntoView({ behavior });
+        break;
+      case 'briefing':
+        document.getElementById('briefing')?.scrollIntoView({ behavior });
         break;
       case 'copy-email':
         copyEmail();
@@ -364,6 +367,7 @@
   }
 
   copyBtn?.addEventListener('click', copyEmail);
+  document.getElementById('copy-email-btn-2')?.addEventListener('click', copyEmail);
 
   // ── TOAST ──
   const toast = document.getElementById('toast');
@@ -465,6 +469,186 @@
       navigator.serviceWorker.register('/sw.js').catch((err) => {
         if (DEBUG) console.warn('[SW] Registration failed:', err);
       });
+    });
+  }
+
+  // ── MISSION BRIEFING WIZARD ──
+  const briefState = {
+    type: null,
+    base: 0,
+    pages: 3,
+    features: [],
+    featureCost: 0,
+    timeline: null,
+    timelineMult: 1,
+    budget: null,
+    step: 1
+  };
+
+  const briefStepLabel = document.getElementById('brief-step-label');
+  const briefProgressBar = document.getElementById('brief-progress-bar');
+  const briefBack = document.getElementById('brief-back');
+  const briefNext = document.getElementById('brief-next');
+  const briefSubmit = document.getElementById('brief-submit');
+  const briefPagesInput = document.getElementById('brief-pages');
+  const briefPagesVal = document.getElementById('brief-pages-val');
+
+  // Estimate panel elements
+  const estType = document.getElementById('est-type');
+  const estScope = document.getElementById('est-scope');
+  const estFeatures = document.getElementById('est-features');
+  const estTimeline = document.getElementById('est-timeline');
+  const estTotal = document.getElementById('est-total');
+
+  function briefGoTo(step) {
+    briefState.step = step;
+    for (let i = 1; i <= 5; i++) {
+      const panel = document.getElementById('brief-step-' + i);
+      if (panel) panel.hidden = i !== step;
+    }
+    if (briefStepLabel) briefStepLabel.textContent = 'STEP ' + step + '/5';
+    if (briefProgressBar) briefProgressBar.style.width = (step * 20) + '%';
+    if (briefBack) briefBack.hidden = step === 1;
+    if (briefNext) briefNext.hidden = step === 5;
+    if (briefSubmit) briefSubmit.hidden = step !== 5;
+  }
+
+  function updateEstimate() {
+    // Type
+    if (estType) {
+      const typeNames = { landing: 'Landing Page', pwa: 'PWA', ecommerce: 'E-Commerce', mobile: 'Mobile App', automation: 'Automation & AI', brand: 'Brand Identity' };
+      estType.textContent = briefState.type ? typeNames[briefState.type] || '—' : '—';
+    }
+    // Scope
+    if (estScope) {
+      estScope.textContent = briefState.pages ? briefState.pages + ' pages' : '—';
+    }
+    // Features
+    if (estFeatures) {
+      estFeatures.textContent = briefState.features.length > 0 ? briefState.features.length + ' selected' : '—';
+    }
+    // Timeline
+    if (estTimeline) {
+      const tlNames = { rush: '🔥 Rush', standard: '⚡ Standard', flexible: '🕐 Flexible' };
+      estTimeline.textContent = briefState.timeline ? (tlNames[briefState.timeline] || '—') : '—';
+    }
+    // Total estimate
+    if (estTotal) {
+      if (!briefState.type) {
+        estTotal.textContent = '$0 – $0';
+        return;
+      }
+      const pageMult = Math.max(1, (briefState.pages - 1) * 0.15 + 1);
+      const baseLow = briefState.base * pageMult + briefState.featureCost;
+      const baseHigh = baseLow * 1.8;
+      const low = Math.round(baseLow * briefState.timelineMult / 50) * 50;
+      const high = Math.round(baseHigh * briefState.timelineMult / 50) * 50;
+      estTotal.textContent = '$' + low.toLocaleString() + ' – $' + high.toLocaleString();
+    }
+  }
+
+  // Step 1: Project type selection
+  document.querySelectorAll('#brief-type-options .brief-option').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('#brief-type-options .brief-option').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      briefState.type = btn.dataset.type;
+      briefState.base = parseInt(btn.dataset.base, 10) || 0;
+      updateEstimate();
+    });
+  });
+
+  // Step 2: Pages range
+  if (briefPagesInput) {
+    briefPagesInput.addEventListener('input', function() {
+      briefState.pages = parseInt(briefPagesInput.value, 10);
+      if (briefPagesVal) briefPagesVal.textContent = briefState.pages;
+      updateEstimate();
+    });
+  }
+
+  // Step 2: Feature checkboxes
+  document.querySelectorAll('.brief-check input[type="checkbox"]').forEach(function(cb) {
+    cb.addEventListener('change', function() {
+      briefState.features = [];
+      briefState.featureCost = 0;
+      document.querySelectorAll('.brief-check input[type="checkbox"]:checked').forEach(function(checked) {
+        briefState.features.push(checked.value);
+        briefState.featureCost += parseInt(checked.dataset.cost, 10) || 0;
+      });
+      updateEstimate();
+    });
+  });
+
+  // Step 3: Timeline selection
+  document.querySelectorAll('[data-timeline]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-timeline]').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      briefState.timeline = btn.dataset.timeline;
+      briefState.timelineMult = parseFloat(btn.dataset.mult) || 1;
+      updateEstimate();
+    });
+  });
+
+  // Step 3: Budget selection
+  document.querySelectorAll('[data-budget]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('[data-budget]').forEach(function(b) { b.classList.remove('selected'); });
+      btn.classList.add('selected');
+      briefState.budget = btn.dataset.budget;
+    });
+  });
+
+  // Navigation
+  if (briefNext) {
+    briefNext.addEventListener('click', function() {
+      if (briefState.step === 1 && !briefState.type) {
+        showToast('> Select a mission type to continue');
+        return;
+      }
+      if (briefState.step < 5) briefGoTo(briefState.step + 1);
+    });
+  }
+
+  if (briefBack) {
+    briefBack.addEventListener('click', function() {
+      if (briefState.step > 1) briefGoTo(briefState.step - 1);
+    });
+  }
+
+  // Submit
+  if (briefSubmit) {
+    briefSubmit.addEventListener('click', function() {
+      var name = document.getElementById('brief-name')?.value || '';
+      var email = document.getElementById('brief-email')?.value || '';
+      if (!name.trim() || !email.trim()) {
+        showToast('> Name and email required to transmit briefing');
+        return;
+      }
+
+      var vision = document.getElementById('brief-vision')?.value || '';
+      var assets = document.getElementById('brief-assets')?.value || '';
+      var phone = document.getElementById('brief-phone')?.value || '';
+
+      var subject = 'Mission Briefing: ' + (briefState.type || 'General') + ' — via codewithsolo.com';
+      var body = 'MISSION BRIEFING — codewithsolo.com\n';
+      body += '================================\n\n';
+      body += 'Name: ' + name + '\n';
+      body += 'Email: ' + email + '\n';
+      if (phone) body += 'Phone: ' + phone + '\n';
+      body += '\nProject Type: ' + (briefState.type || 'Not specified') + '\n';
+      body += 'Pages/Screens: ' + briefState.pages + '\n';
+      body += 'Features: ' + (briefState.features.length > 0 ? briefState.features.join(', ') : 'None selected') + '\n';
+      body += 'Timeline: ' + (briefState.timeline || 'Not specified') + '\n';
+      body += 'Budget: ' + (briefState.budget || 'Not specified') + '\n';
+      body += 'Estimate: ' + (estTotal?.textContent || 'N/A') + '\n';
+      body += '\nVision:\n' + vision + '\n';
+      body += '\nExisting Assets:\n' + assets + '\n';
+
+      var mailtoLink = 'mailto:cod3blackagency@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      window.location.href = mailtoLink;
+      showToast('> Briefing transmitted — check your email client');
     });
   }
 
