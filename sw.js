@@ -3,7 +3,7 @@
    Cache-first for shell, stale-while-revalidate
    ═══════════════════════════════════════════════ */
 
-const CACHE_NAME = 'codewithsolo-v5-pwa-fix';
+const CACHE_NAME = 'codewithsolo-v6-api-hardening';
 const SHELL_ASSETS = [
   '/',
   '/index.html',
@@ -39,8 +39,10 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const url = new URL(event.request.url);
 
-  // Only handle same-origin
+  // Only handle same-origin GET requests; skip API routes
   if (url.origin !== self.location.origin) return;
+  if (event.request.method !== 'GET') return;
+  if (url.pathname.startsWith('/api/')) return;
 
   // Navigation requests — try network first, fall back to cache/offline
   if (event.request.mode === 'navigate') {

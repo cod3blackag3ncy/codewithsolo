@@ -1,34 +1,69 @@
 // Vercel Serverless Function — POST /api/briefing
 // Sends cinematic dual-email via Resend API
 
-export default async function handler(req, res) {
-  const corsHeaders = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-  };
+const ALLOWED_TYPES = ['landing', 'pwa', 'ecommerce', 'mobile', 'automation', 'brand'];
+const ALLOWED_TIMELINES = ['rush', 'standard', 'flexible'];
+const ALLOWED_BUDGETS = ['under1k', '1k-3k', '3k-5k', '5k-10k', '10k+'];
+const ALLOWED_FEATURES = ['auth', 'payments', 'cms', 'api', 'email', 'analytics'];
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // CORS preflight
+function sendJson(res, status, body) {
+  res.setHeader('Content-Type', 'application/json');
+  res.setHeader('Cache-Control', 'no-store');
+  return res.status(status).json(body);
+}
+
+function sanitize(str, maxLen) {
+  if (typeof str !== 'string') return '';
+  return str.replace(/[\r\n\x00-\x1f]/g, ' ').trim().slice(0, maxLen);
+}
+
+export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, corsHeaders);
-    return res.end();
+    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    return res.status(204).end();
   }
 
   if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+    return sendJson(res, 405, { error: 'Method not allowed' });
   }
 
   try {
-    const { name, email, phone, type, pages, features, timeline, budget, estimate, vision, assets } = req.body;
+    const body = req.body;
+    if (!body || typeof body !== 'object') {
+      return sendJson(res, 400, { error: 'Invalid request body' });
+    }
+
+    const name = sanitize(body.name, 100);
+    const email = sanitize(body.email, 254);
+    const phone = sanitize(body.phone, 30);
+    const vision = sanitize(body.vision, 2000);
+    const assets = sanitize(body.assets, 1000);
+    const estimate = sanitize(body.estimate, 50);
 
     if (!name || !email) {
-      return res.status(400).json({ error: 'Name and email required' });
+      return sendJson(res, 400, { error: 'Name and email required' });
+    }
+
+    if (!EMAIL_RE.test(email)) {
+      return sendJson(res, 400, { error: 'Invalid email address' });
+    }
+
+    const type = ALLOWED_TYPES.includes(body.type) ? body.type : null;
+    const timeline = ALLOWED_TIMELINES.includes(body.timeline) ? body.timeline : null;
+    const budget = ALLOWED_BUDGETS.includes(body.budget) ? body.budget : null;
+    const pages = Math.max(1, Math.min(20, parseInt(body.pages, 10) || 3));
+
+    let features = [];
+    if (Array.isArray(body.features)) {
+      features = body.features.filter(f => ALLOWED_FEATURES.includes(f));
     }
 
     const RESEND_API_KEY = process.env.RESEND_API_KEY;
     if (!RESEND_API_KEY) {
       console.error('[BRIEFING] RESEND_API_KEY not set');
-      return res.status(500).json({ error: 'Server configuration error' });
+      return sendJson(res, 500, { error: 'Server configuration error' });
     }
 
     const typeNames = {
@@ -46,7 +81,7 @@ export default async function handler(req, res) {
       standard: '⚡ Standard',
       flexible: '🕐 Flexible',
     };
-    const timelineName = timelineNames[timeline] || timeline || 'Not specified';
+    const timelineName = timelineNames[timeline] || 'Not specified';
 
     const budgetNames = {
       'under1k': 'Under $1K',
@@ -55,9 +90,9 @@ export default async function handler(req, res) {
       '5k-10k': '$5K – $10K',
       '10k+': '$10K+',
     };
-    const budgetName = budgetNames[budget] || budget || 'Not specified';
+    const budgetName = budgetNames[budget] || 'Not specified';
 
-    const featureList = features && features.length > 0 ? features.join(', ') : 'None selected';
+    const featureList = features.length > 0 ? features.join(', ') : 'None selected';
 
     const internalHtml = buildCinematicBriefingEmail({
       name, email, phone, typeName, pages, featureList, timelineName, budgetName, estimate, vision, assets,
@@ -65,32 +100,32 @@ export default async function handler(req, res) {
 
     const confirmationHtml = buildConfirmationEmail({ name, typeName, estimate });
 
-    // Priority headers — ensure inbox placement, not spam/promotions
-    const priorityHeaders = {
-      'X-Priority': '1',
-      'X-MSMail-Priority': 'High',
-      'Importance': 'high',
-      'X-Mailer': 'codewithsolo.com',
-      'X-Entity-Ref-ID': `briefing-${Date.now()}`,
-    };
-
-    // Send both emails via Resend using mail.codewithsolo.com (verified domain)
-    // Internal briefing goes to BOTH cod3blackagency AND silverwatkins for redundancy
-    const [internalRes, confirmRes] = await Promise.all([
-      fetch('https://api.resend.com/emails', {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          from: 'codewithsolo.com <noreply@mail.codewithsolo.com>',
-          to: ['cod3blackagency@gmail.com', 'silverwatkins@gmail.com'],
-          subject: `Mission Briefing: ${typeName} — ${name}`,
-          html: internalHtml,
-          reply_to: email,
-          headers: priorityHeaders,
-          tags: [{ name: 'category', value: 'briefing' }],
-        }),
+    // Send internal briefing first, then confirmation
+    const internalRes = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: 'codewithsolo.com <noreply@mail.codewithsolo.com>',
+        to: ['cod3blackagency@gmail.com', 'silverwatkins@gmail.com'],
+        subject: `Mission Briefing: ${typeName} — ${name}`,
+        html: internalHtml,
+        reply_to: email,
+        tags: [{ name: 'category', value: 'briefing' }],
       }),
-      fetch('https://api.resend.com/emails', {
+    });
+
+    const internalResult = await internalRes.json();
+    console.log('[BRIEFING] Internal email:', internalRes.status, JSON.stringify(internalResult));
+
+    if (!internalRes.ok) {
+      console.error('[BRIEFING] Internal email failed:', JSON.stringify(internalResult));
+      return sendJson(res, 502, { error: 'Failed to send briefing' });
+    }
+
+    // Send confirmation to client — don't block success on this
+    let confirmationSent = false;
+    try {
+      const confirmRes = await fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -99,29 +134,21 @@ export default async function handler(req, res) {
           subject: `Your project briefing — codewithsolo.com`,
           html: confirmationHtml,
           reply_to: 'cod3blackagency@gmail.com',
-          headers: priorityHeaders,
           tags: [{ name: 'category', value: 'confirmation' }],
         }),
-      }),
-    ]);
-
-    const internalResult = await internalRes.json();
-    const confirmResult = await confirmRes.json();
-
-    console.log('[BRIEFING] Internal email:', internalRes.status, JSON.stringify(internalResult));
-    console.log('[BRIEFING] Confirm email:', confirmRes.status, JSON.stringify(confirmResult));
-
-    if (!internalRes.ok) {
-      return res.status(500).json({ error: 'Failed to send briefing', detail: internalResult });
+      });
+      const confirmResult = await confirmRes.json();
+      console.log('[BRIEFING] Confirm email:', confirmRes.status, JSON.stringify(confirmResult));
+      confirmationSent = confirmRes.ok;
+    } catch (confirmErr) {
+      console.error('[BRIEFING] Confirmation email error:', confirmErr.message);
     }
 
-    // Set CORS headers on success response
-    Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v));
-    return res.status(200).json({ success: true, id: internalResult.id });
+    return sendJson(res, 200, { success: true, id: internalResult.id, confirmationSent });
 
   } catch (err) {
     console.error('[BRIEFING] Error:', err);
-    return res.status(500).json({ error: 'Internal error', message: err.message });
+    return sendJson(res, 500, { error: 'Internal error' });
   }
 }
 

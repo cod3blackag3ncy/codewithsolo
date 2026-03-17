@@ -1,5 +1,10 @@
 {
-  "rewrites": [
-    { "source": "/api/briefing", "destination": "/api/briefing" }
+  "headers": [
+    {
+      "source": "/api/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    }
   ]
 }

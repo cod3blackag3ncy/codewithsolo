@@ -658,6 +658,10 @@
           if (result.ok) {
             showToast('> Briefing transmitted — confirmation sent to ' + email.trim());
             briefSubmit.textContent = '✅ Briefing Sent';
+            setTimeout(function() {
+              briefSubmit.disabled = false;
+              briefSubmit.textContent = '📡 Transmit Briefing';
+            }, 5000);
           } else {
             throw new Error(result.data.error || 'Transmission failed');
           }
