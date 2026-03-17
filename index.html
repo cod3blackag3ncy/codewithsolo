@@ -17,7 +17,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=20260214-email">
+  <link rel="stylesheet" href="/style.css?v=20260317-pricing">
   </head>
 <body>
 
@@ -65,9 +65,10 @@
       <ul class="cmd-list" id="cmd-list">
         <li data-action="hero"><span class="cmd-icon">◆</span> Go to Top</li>
         <li data-action="projects"><span class="cmd-icon">◆</span> View Projects</li>
+        <li data-action="pricing"><span class="cmd-icon">◆</span> View Pricing</li>
         <li data-action="services"><span class="cmd-icon">◆</span> View Services</li>
         <li data-action="workflow"><span class="cmd-icon">◆</span> Amp Workflow</li>
-        <li data-action="contact"><span class="cmd-icon">◆</span> Open Secure Channel</li>
+        <li data-action="briefing"><span class="cmd-icon">◆</span> Mission Briefing</li>
         <li data-action="copy-email"><span class="cmd-icon">📧</span> Copy Email Address</li>
         <li data-action="reboot"><span class="cmd-icon">↻</span> Reboot Sequence</li>
         <li data-action="install"><span class="cmd-icon">⬇</span> Install PWA</li>
@@ -83,8 +84,9 @@
     </a>
     <div class="nav-links">
       <a href="#projects">Projects</a>
+      <a href="#pricing">Pricing</a>
       <a href="#services">Services</a>
-      <a href="#contact">Contact</a>
+      <a href="#briefing">Briefing</a>
       <button class="nav-cmd" id="nav-cmd-btn" aria-label="Open command palette">
         <span class="mono">⌘K</span>
       </button>
@@ -97,8 +99,9 @@
   <!-- ═══════════════ MOBILE NAV ═══════════════ -->
   <div class="mobile-nav" id="mobile-nav" hidden>
     <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#pricing" class="mobile-nav-link">Pricing</a>
     <a href="#services" class="mobile-nav-link">Services</a>
-    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="#briefing" class="mobile-nav-link">Briefing</a>
     <button class="mobile-nav-link" id="mobile-cmd-btn">⌘K Command Console</button>
   </div>
 
@@ -113,7 +116,7 @@
           <p class="hero-subtitle">Solo developer shipping <span class="cyan">cinematic web experiences</span> with AI-assisted velocity.</p>
           <p class="hero-meta mono muted">Cod3BlackAgency &nbsp;·&nbsp; Web Dev &nbsp;·&nbsp; Branding &nbsp;·&nbsp; Mobile &nbsp;·&nbsp; AI/ML</p>
           <div class="hero-ctas">
-            <a href="#contact" class="btn btn-primary">Initiate Contact</a>
+            <a href="#briefing" class="btn btn-primary">Initiate Contact</a>
             <a href="#projects" class="btn btn-secondary">View Missions ▸</a>
           </div>
         </div>
@@ -134,67 +137,10 @@
       </div>
     </section>
 
-    <!-- ═══════════════ AMP WORKFLOW ═══════════════ -->
-    <section class="workflow" id="workflow">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">02 //</span> Amp-Driven Workflow</h2>
-        <p class="section-subtitle reveal">AI-augmented development — shipping in hours, not weeks.</p>
-        <div class="pipeline reveal" style="--delay:.2s">
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono cyan">01</span>
-              <h3>Brief</h3>
-              <p class="muted">Define scope, brand direction, technical requirements.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono cyan">02</span>
-              <h3>Prototype</h3>
-              <p class="muted">Rapid wireframing and interactive mockups in hours.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono green">03</span>
-              <h3>Amp Pair-Programming</h3>
-              <p class="muted">AI-assisted code generation with human creative direction.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono cyan">04</span>
-              <h3>QA + Polish</h3>
-              <p class="muted">Cross-browser testing, performance tuning, accessibility audit.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono green">05</span>
-              <h3>Deploy</h3>
-              <p class="muted">Ship to Vercel / Cloudflare Pages with CI/CD pipeline.</p>
-            </div>
-          </div>
-          <div class="pipe-line" aria-hidden="true">
-            <div class="pipe-line-glow"></div>
-          </div>
-        </div>
-        <div class="pipeline-metric glass reveal" style="--delay:.4s">
-          <span class="mono cyan">AVG TURNAROUND:</span>
-          <span class="metric-value">Hours, not weeks.</span>
-        </div>
-      </div>
-    </section>
-
     <!-- ═══════════════ PROJECTS ═══════════════ -->
     <section class="projects" id="projects">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">03 //</span> Mission Log</h2>
+        <h2 class="section-title reveal"><span class="mono muted">02 //</span> Mission Log</h2>
         <p class="section-subtitle reveal">Live deployments. All links are operational.</p>
 
         <div class="mission-grid">
@@ -291,10 +237,196 @@
       </div>
     </section>
 
+    <!-- ═══════════════ PRICING INTEL ═══════════════ -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">03 //</span> Pricing Intel</h2>
+        <p class="section-subtitle reveal">Transparent rates. No hidden fees. Fixed-scope projects — you know the cost before we start.</p>
+
+        <div class="pricing-grid reveal" style="--delay:.2s">
+          <div class="price-card glass neo-border">
+            <div class="price-header">
+              <span class="price-tag mono cyan">TIER 01</span>
+              <h3 class="price-name">Landing Pages</h3>
+            </div>
+            <div class="price-amount">
+              <span class="price-from mono muted">FROM</span>
+              <span class="price-val">$500</span>
+            </div>
+            <div class="price-range mono muted">Typical: $900 – $2,000</div>
+            <div class="price-timeline mono">
+              <span class="green">▸</span> 1–3 days turnaround
+            </div>
+            <p class="price-desc muted">High-conversion cinematic landing pages. Design, dev, deploy — all included.</p>
+          </div>
+
+          <div class="price-card glass neo-border">
+            <div class="price-header">
+              <span class="price-tag mono cyan">TIER 02</span>
+              <h3 class="price-name">PWA Deployments</h3>
+            </div>
+            <div class="price-amount">
+              <span class="price-from mono muted">FROM</span>
+              <span class="price-val">$1,200</span>
+            </div>
+            <div class="price-range mono muted">Typical: $1,800 – $3,500</div>
+            <div class="price-timeline mono">
+              <span class="green">▸</span> 2–5 days turnaround
+            </div>
+            <p class="price-desc muted">Offline-ready, installable apps with service workers and push notifications.</p>
+          </div>
+
+          <div class="price-card glass neo-border">
+            <div class="price-header">
+              <span class="price-tag mono green">TIER 03</span>
+              <h3 class="price-name">E-Commerce</h3>
+            </div>
+            <div class="price-amount">
+              <span class="price-from mono muted">FROM</span>
+              <span class="price-val">$2,500</span>
+            </div>
+            <div class="price-range mono muted">Typical: $3,000 – $6,000</div>
+            <div class="price-timeline mono">
+              <span class="green">▸</span> 1–2 weeks turnaround
+            </div>
+            <p class="price-desc muted">Full storefronts with Stripe, inventory, menus, and branded checkout flows.</p>
+          </div>
+
+          <div class="price-card glass neo-border">
+            <div class="price-header">
+              <span class="price-tag mono green">TIER 04</span>
+              <h3 class="price-name">Mobile Apps</h3>
+            </div>
+            <div class="price-amount">
+              <span class="price-from mono muted">FROM</span>
+              <span class="price-val">$3,500</span>
+            </div>
+            <div class="price-range mono muted">Typical: $5,000 – $10,000</div>
+            <div class="price-timeline mono">
+              <span class="green">▸</span> 2–4 weeks turnaround
+            </div>
+            <p class="price-desc muted">Cross-platform React Native apps with subscriptions, real-time data, and offline support.</p>
+          </div>
+
+          <div class="price-card glass neo-border">
+            <div class="price-header">
+              <span class="price-tag mono cyan">TIER 05</span>
+              <h3 class="price-name">Automation & AI</h3>
+            </div>
+            <div class="price-amount">
+              <span class="price-from mono muted">FROM</span>
+              <span class="price-val">$2,000</span>
+            </div>
+            <div class="price-range mono muted">Typical: $3,000 – $6,000</div>
+            <div class="price-timeline mono">
+              <span class="green">▸</span> 1–2 weeks turnaround
+            </div>
+            <p class="price-desc muted">Custom AI pipelines, chatbots, email marketing systems, and DevOps infrastructure.</p>
+          </div>
+
+          <div class="price-card glass neo-border">
+            <div class="price-header">
+              <span class="price-tag mono cyan">TIER 06</span>
+              <h3 class="price-name">Brand Identity</h3>
+            </div>
+            <div class="price-amount">
+              <span class="price-from mono muted">FROM</span>
+              <span class="price-val">$500</span>
+            </div>
+            <div class="price-range mono muted">Typical: $800 – $1,500</div>
+            <div class="price-timeline mono">
+              <span class="green">▸</span> 3–7 days turnaround
+            </div>
+            <p class="price-desc muted">Logo, color systems, typography, email templates, and brand guideline documents.</p>
+          </div>
+        </div>
+
+        <div class="rate-card glass neo-border reveal" style="--delay:.4s">
+          <div class="rate-header mono muted">◆ OPERATIVE RATES</div>
+          <div class="rate-grid">
+            <div class="rate-item">
+              <span class="rate-label mono muted">STANDARD DEV</span>
+              <span class="rate-val cyan">$125<span class="rate-unit">/hr</span></span>
+            </div>
+            <div class="rate-item">
+              <span class="rate-label mono muted">REFERRAL</span>
+              <span class="rate-val green">$65<span class="rate-unit">/hr</span></span>
+            </div>
+            <div class="rate-item">
+              <span class="rate-label mono muted">EMERGENCY</span>
+              <span class="rate-val" style="color:#ff5f57">$175<span class="rate-unit">/hr</span></span>
+            </div>
+            <div class="rate-item">
+              <span class="rate-label mono muted">RETAINER</span>
+              <span class="rate-val cyan">$125<span class="rate-unit">/mo</span></span>
+            </div>
+          </div>
+          <p class="rate-note mono muted">Fixed-scope preferred. Projects over $2,000 use milestone-based billing.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════ AMP WORKFLOW ═══════════════ -->
+    <section class="workflow" id="workflow">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">04 //</span> Amp-Driven Workflow</h2>
+        <p class="section-subtitle reveal">AI-augmented development — shipping in hours, not weeks.</p>
+        <div class="pipeline reveal" style="--delay:.2s">
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono cyan">01</span>
+              <h3>Brief</h3>
+              <p class="muted">Define scope, brand direction, technical requirements.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono cyan">02</span>
+              <h3>Prototype</h3>
+              <p class="muted">Rapid wireframing and interactive mockups in hours.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono green">03</span>
+              <h3>Amp Pair-Programming</h3>
+              <p class="muted">AI-assisted code generation with human creative direction.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono cyan">04</span>
+              <h3>QA + Polish</h3>
+              <p class="muted">Cross-browser testing, performance tuning, accessibility audit.</p>
+            </div>
+          </div>
+          <div class="pipe-step">
+            <div class="pipe-dot"></div>
+            <div class="pipe-content glass">
+              <span class="pipe-num mono green">05</span>
+              <h3>Deploy</h3>
+              <p class="muted">Ship to Vercel / Cloudflare Pages with CI/CD pipeline.</p>
+            </div>
+          </div>
+          <div class="pipe-line" aria-hidden="true">
+            <div class="pipe-line-glow"></div>
+          </div>
+        </div>
+        <div class="pipeline-metric glass reveal" style="--delay:.4s">
+          <span class="mono cyan">AVG TURNAROUND:</span>
+          <span class="metric-value">Hours, not weeks.</span>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════════ SERVICES ═══════════════ -->
     <section class="services" id="services">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">04 //</span> Service Modules</h2>
+        <h2 class="section-title reveal"><span class="mono muted">05 //</span> Service Modules</h2>
         <p class="section-subtitle reveal">Select a module to expand operational details.</p>
 
         <div class="service-accordion reveal" style="--delay:.2s">
@@ -311,6 +443,7 @@
               <div class="svc-spec mono">
                 <span>DELIVERABLES: Design + Dev + Deploy</span>
                 <span>TIMELINE: 1–3 days</span>
+                <span>STARTING: $500 · TYPICAL: $900–$2,000</span>
               </div>
             </div>
           </div>
@@ -327,6 +460,7 @@
               <div class="svc-spec mono">
                 <span>DELIVERABLES: PWA + Service Worker + Manifest</span>
                 <span>TIMELINE: 2–5 days</span>
+                <span>STARTING: $1,200 · TYPICAL: $1,800–$3,500</span>
               </div>
             </div>
           </div>
@@ -343,6 +477,7 @@
               <div class="svc-spec mono">
                 <span>DELIVERABLES: Store + Payments + Admin</span>
                 <span>TIMELINE: 1–2 weeks</span>
+                <span>STARTING: $2,500 · TYPICAL: $3,000–$6,000</span>
               </div>
             </div>
           </div>
@@ -359,6 +494,7 @@
               <div class="svc-spec mono">
                 <span>DELIVERABLES: iOS + Android + Backend</span>
                 <span>TIMELINE: 2–4 weeks</span>
+                <span>STARTING: $3,500 · TYPICAL: $5,000–$10,000</span>
               </div>
             </div>
           </div>
@@ -375,6 +511,7 @@
               <div class="svc-spec mono">
                 <span>DELIVERABLES: System + Integration + Docs</span>
                 <span>TIMELINE: 1–2 weeks</span>
+                <span>STARTING: $2,000 · TYPICAL: $3,000–$6,000</span>
               </div>
             </div>
           </div>
@@ -391,6 +528,7 @@
               <div class="svc-spec mono">
                 <span>DELIVERABLES: Logo + Guidelines + Templates</span>
                 <span>TIMELINE: 3–7 days</span>
+                <span>STARTING: $500 · TYPICAL: $800–$1,500</span>
               </div>
             </div>
           </div>
@@ -399,10 +537,199 @@
       </div>
     </section>
 
+    <!-- ═══════════════ MISSION BRIEFING ═══════════════ -->
+    <section class="briefing" id="briefing">
+      <div class="container">
+        <h2 class="section-title reveal"><span class="mono muted">06 //</span> Mission Briefing</h2>
+        <p class="section-subtitle reveal">Define your mission. Get a live estimate. I'll respond within 24 hours.</p>
+
+        <div class="briefing-layout reveal" style="--delay:.2s">
+          <!-- Form Panel -->
+          <div class="briefing-form glass neo-border">
+            <div class="brief-header">
+              <span class="boot-dot green"></span>
+              <span class="brief-title mono muted">MISSION_INTAKE v1.0</span>
+              <span class="brief-step mono cyan" id="brief-step-label">STEP 1/5</span>
+            </div>
+
+            <!-- Progress bar -->
+            <div class="brief-progress">
+              <div class="brief-progress-bar" id="brief-progress-bar" style="width:20%"></div>
+            </div>
+
+            <!-- Step 1: Project Type -->
+            <div class="brief-step-panel" id="brief-step-1">
+              <p class="brief-prompt mono">> Select mission type:</p>
+              <div class="brief-options" id="brief-type-options">
+                <button class="brief-option" data-type="landing" data-base="500">
+                  <span class="brief-opt-icon cyan">◆</span>
+                  <span class="brief-opt-name">Landing Page</span>
+                  <span class="brief-opt-price mono muted">from $500</span>
+                </button>
+                <button class="brief-option" data-type="pwa" data-base="1200">
+                  <span class="brief-opt-icon cyan">◆</span>
+                  <span class="brief-opt-name">PWA Deployment</span>
+                  <span class="brief-opt-price mono muted">from $1,200</span>
+                </button>
+                <button class="brief-option" data-type="ecommerce" data-base="2500">
+                  <span class="brief-opt-icon green">◆</span>
+                  <span class="brief-opt-name">E-Commerce Build</span>
+                  <span class="brief-opt-price mono muted">from $2,500</span>
+                </button>
+                <button class="brief-option" data-type="mobile" data-base="3500">
+                  <span class="brief-opt-icon green">◆</span>
+                  <span class="brief-opt-name">Mobile App</span>
+                  <span class="brief-opt-price mono muted">from $3,500</span>
+                </button>
+                <button class="brief-option" data-type="automation" data-base="2000">
+                  <span class="brief-opt-icon cyan">◆</span>
+                  <span class="brief-opt-name">Automation & AI</span>
+                  <span class="brief-opt-price mono muted">from $2,000</span>
+                </button>
+                <button class="brief-option" data-type="brand" data-base="500">
+                  <span class="brief-opt-icon cyan">◆</span>
+                  <span class="brief-opt-name">Brand Identity</span>
+                  <span class="brief-opt-price mono muted">from $500</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2: Scope -->
+            <div class="brief-step-panel" id="brief-step-2" hidden>
+              <p class="brief-prompt mono">> Define mission scope:</p>
+              <div class="brief-field">
+                <label class="brief-label mono muted">PAGES / SCREENS</label>
+                <div class="brief-range-row">
+                  <input type="range" class="brief-range" id="brief-pages" min="1" max="20" value="3">
+                  <span class="brief-range-val mono cyan" id="brief-pages-val">3</span>
+                </div>
+              </div>
+              <div class="brief-field">
+                <label class="brief-label mono muted">KEY FEATURES</label>
+                <div class="brief-checks">
+                  <label class="brief-check"><input type="checkbox" value="auth" data-cost="300"> <span>User Auth</span></label>
+                  <label class="brief-check"><input type="checkbox" value="payments" data-cost="500"> <span>Payments/Stripe</span></label>
+                  <label class="brief-check"><input type="checkbox" value="cms" data-cost="400"> <span>CMS / Admin</span></label>
+                  <label class="brief-check"><input type="checkbox" value="api" data-cost="350"> <span>API Integration</span></label>
+                  <label class="brief-check"><input type="checkbox" value="email" data-cost="200"> <span>Email System</span></label>
+                  <label class="brief-check"><input type="checkbox" value="analytics" data-cost="150"> <span>Analytics</span></label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Timeline & Budget -->
+            <div class="brief-step-panel" id="brief-step-3" hidden>
+              <p class="brief-prompt mono">> Timeline & budget parameters:</p>
+              <div class="brief-field">
+                <label class="brief-label mono muted">TIMELINE PREFERENCE</label>
+                <div class="brief-options brief-options-sm">
+                  <button class="brief-option brief-option-sm" data-timeline="rush" data-mult="1.5">
+                    <span class="brief-opt-name">🔥 Rush (ASAP)</span>
+                  </button>
+                  <button class="brief-option brief-option-sm" data-timeline="standard" data-mult="1">
+                    <span class="brief-opt-name">⚡ Standard</span>
+                  </button>
+                  <button class="brief-option brief-option-sm" data-timeline="flexible" data-mult="0.9">
+                    <span class="brief-opt-name">🕐 Flexible</span>
+                  </button>
+                </div>
+              </div>
+              <div class="brief-field">
+                <label class="brief-label mono muted">BUDGET RANGE</label>
+                <div class="brief-options brief-options-sm">
+                  <button class="brief-option brief-option-sm" data-budget="under1k">Under $1K</button>
+                  <button class="brief-option brief-option-sm" data-budget="1k-3k">$1K – $3K</button>
+                  <button class="brief-option brief-option-sm" data-budget="3k-5k">$3K – $5K</button>
+                  <button class="brief-option brief-option-sm" data-budget="5k-10k">$5K – $10K</button>
+                  <button class="brief-option brief-option-sm" data-budget="10k+">$10K+</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 4: Vision -->
+            <div class="brief-step-panel" id="brief-step-4" hidden>
+              <p class="brief-prompt mono">> Describe your vision:</p>
+              <div class="brief-field">
+                <label class="brief-label mono muted">PROJECT DESCRIPTION</label>
+                <textarea class="brief-textarea" id="brief-vision" rows="4" placeholder="What are you building? Who is it for? Any inspiration or references?"></textarea>
+              </div>
+              <div class="brief-field">
+                <label class="brief-label mono muted">EXISTING ASSETS</label>
+                <textarea class="brief-textarea" id="brief-assets" rows="2" placeholder="Logo, brand colors, domain, existing site, content..."></textarea>
+              </div>
+            </div>
+
+            <!-- Step 5: Contact -->
+            <div class="brief-step-panel" id="brief-step-5" hidden>
+              <p class="brief-prompt mono">> Secure channel details:</p>
+              <div class="brief-field">
+                <label class="brief-label mono muted">YOUR NAME</label>
+                <input type="text" class="brief-input" id="brief-name" placeholder="Full name">
+              </div>
+              <div class="brief-field">
+                <label class="brief-label mono muted">EMAIL</label>
+                <input type="email" class="brief-input" id="brief-email" placeholder="you@example.com">
+              </div>
+              <div class="brief-field">
+                <label class="brief-label mono muted">PHONE (optional)</label>
+                <input type="tel" class="brief-input" id="brief-phone" placeholder="(xxx) xxx-xxxx">
+              </div>
+            </div>
+
+            <!-- Nav buttons -->
+            <div class="brief-nav">
+              <button class="btn btn-secondary" id="brief-back" hidden>← Back</button>
+              <button class="btn btn-primary" id="brief-next">Next →</button>
+              <button class="btn btn-primary" id="brief-submit" hidden style="--accent:var(--green)">📡 Transmit Briefing</button>
+            </div>
+          </div>
+
+          <!-- Estimate Panel -->
+          <div class="estimate-panel glass neo-border">
+            <div class="est-header mono muted">◆ LIVE ESTIMATE</div>
+            <div class="est-body">
+              <div class="est-row">
+                <span class="est-label mono muted">TYPE</span>
+                <span class="est-val mono" id="est-type">—</span>
+              </div>
+              <div class="est-row">
+                <span class="est-label mono muted">SCOPE</span>
+                <span class="est-val mono" id="est-scope">—</span>
+              </div>
+              <div class="est-row">
+                <span class="est-label mono muted">FEATURES</span>
+                <span class="est-val mono" id="est-features">—</span>
+              </div>
+              <div class="est-row">
+                <span class="est-label mono muted">TIMELINE</span>
+                <span class="est-val mono" id="est-timeline">—</span>
+              </div>
+              <div class="est-divider"></div>
+              <div class="est-row est-total">
+                <span class="est-label mono">ESTIMATED RANGE</span>
+                <span class="est-val mono cyan" id="est-total">$0 – $0</span>
+              </div>
+            </div>
+            <p class="est-note mono muted">Estimate updates live. Final quote after briefing review.</p>
+
+            <!-- Fallback contact below estimate -->
+            <div class="est-fallback">
+              <div class="est-divider"></div>
+              <p class="mono muted" style="font-size:.75rem;margin-bottom:12px">Or reach out directly:</p>
+              <div class="contact-actions" style="justify-content:flex-start">
+                <a href="mailto:cod3blackagency@gmail.com?subject=Mission%20Briefing%20—%20via%20codewithsolo.com" class="btn btn-secondary btn-sm">📧 Email</a>
+                <button class="btn btn-secondary btn-sm" id="copy-email-btn-2">📋 Copy Email</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════════ OPERATIONAL LOG ═══════════════ -->
     <section class="op-log" id="log">
       <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">05 //</span> Operational Log</h2>
+        <h2 class="section-title reveal"><span class="mono muted">07 //</span> Operational Log</h2>
         <div class="log-entries reveal" style="--delay:.15s">
           <div class="log-entry glass">
             <span class="log-time mono muted">2024–2026</span>
@@ -424,30 +751,6 @@
       </div>
     </section>
 
-    <!-- ═══════════════ CTA / CONTACT ═══════════════ -->
-    <section class="contact" id="contact">
-      <div class="container">
-        <div class="contact-panel glass neo-border reveal">
-          <div class="contact-badge mono muted">◆ SECURE CHANNEL // OPEN</div>
-          <h2 class="contact-title">Let's build something<span class="cyan">.</span></h2>
-          <p class="contact-desc">Ready to ship your next project? Open a secure channel. I respond fast.</p>
-          <div class="contact-actions">
-            <a href="mailto:cod3blackagency@gmail.com?subject=Let's%20build%20something%20—%20via%20codewithsolo.com" class="btn btn-primary btn-lg">
-              📧 Send Transmission
-            </a>
-            <button class="btn btn-secondary btn-lg" id="copy-email-btn">
-              📋 Copy Email
-            </button>
-          </div>
-          <div class="contact-links">
-            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer" class="contact-link">Agency HQ ↗</a>
-            <a href="https://codewithsolo.com" class="contact-link">codewithsolo.com</a>
-          </div>
-          <p class="contact-encrypt mono muted" aria-hidden="true">AES-256 // SIMULATED</p>
-        </div>
-      </div>
-    </section>
-
   </main>
 
   <!-- ═══════════════ FOOTER ═══════════════ -->
@@ -460,6 +763,7 @@
        </div>
        <div class="footer-links">
          <a href="mailto:cod3blackagency@gmail.com">cod3blackagency@gmail.com</a>
+        <a href="#pricing">Pricing</a>
         <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer">c3bai.vercel.app</a>
         <a href="https://codewithsolo.com">codewithsolo.com</a>
       </div>
@@ -492,7 +796,7 @@
     </div>
   </div>
 
-  <script src="/app.js?v=20260214-email"></script>
-  <script src="/cache-bust.js?v=20260214-email"></script>
+  <script src="/app.js?v=20260317-pricing"></script>
+  <script src="/cache-bust.js?v=20260317-pricing"></script>
 </body>
 </html>
