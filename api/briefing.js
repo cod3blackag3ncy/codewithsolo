@@ -1,27 +1,34 @@
-export async function onRequestPost(context) {
+// Vercel Serverless Function — POST /api/briefing
+// Sends cinematic dual-email via Resend API
+
+export default async function handler(req, res) {
   const corsHeaders = {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'POST, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
   };
 
+  // CORS preflight
+  if (req.method === 'OPTIONS') {
+    res.writeHead(204, corsHeaders);
+    return res.end();
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   try {
-    const data = await context.request.json();
-    const { name, email, phone, type, pages, features, timeline, budget, estimate, vision, assets } = data;
+    const { name, email, phone, type, pages, features, timeline, budget, estimate, vision, assets } = req.body;
 
     if (!name || !email) {
-      return new Response(JSON.stringify({ error: 'Name and email required' }), {
-        status: 400,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
+      return res.status(400).json({ error: 'Name and email required' });
     }
 
-    const RESEND_API_KEY = context.env.RESEND_API_KEY;
+    const RESEND_API_KEY = process.env.RESEND_API_KEY;
     if (!RESEND_API_KEY) {
-      return new Response(JSON.stringify({ error: 'Server configuration error' }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
+      console.error('[BRIEFING] RESEND_API_KEY not set');
+      return res.status(500).json({ error: 'Server configuration error' });
     }
 
     const typeNames = {
@@ -52,15 +59,13 @@ export async function onRequestPost(context) {
 
     const featureList = features && features.length > 0 ? features.join(', ') : 'None selected';
 
-    // ── CINEMATIC HTML EMAIL TO YOU ──
     const internalHtml = buildCinematicBriefingEmail({
       name, email, phone, typeName, pages, featureList, timelineName, budgetName, estimate, vision, assets,
     });
 
-    // ── BRANDED CONFIRMATION EMAIL TO CLIENT ──
     const confirmationHtml = buildConfirmationEmail({ name, typeName, estimate });
 
-    // Send both emails via Resend
+    // Send both emails via Resend — using mail.codewithsolo.com (verified domain)
     const [internalRes, confirmRes] = await Promise.all([
       fetch('https://api.resend.com/emails', {
         method: 'POST',
@@ -88,40 +93,25 @@ export async function onRequestPost(context) {
     const internalResult = await internalRes.json();
     const confirmResult = await confirmRes.json();
 
+    console.log('[BRIEFING] Internal email:', internalRes.status, JSON.stringify(internalResult));
+    console.log('[BRIEFING] Confirm email:', confirmRes.status, JSON.stringify(confirmResult));
+
     if (!internalRes.ok) {
-      return new Response(JSON.stringify({ error: 'Failed to send briefing', detail: internalResult }), {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      });
+      return res.status(500).json({ error: 'Failed to send briefing', detail: internalResult });
     }
 
-    return new Response(JSON.stringify({ success: true, id: internalResult.id }), {
-      status: 200,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+    // Set CORS headers on success response
+    Object.entries(corsHeaders).forEach(([k, v]) => res.setHeader(k, v));
+    return res.status(200).json({ success: true, id: internalResult.id });
 
   } catch (err) {
-    return new Response(JSON.stringify({ error: 'Internal error', message: err.message }), {
-      status: 500,
-      headers: { 'Content-Type': 'application/json', ...corsHeaders },
-    });
+    console.error('[BRIEFING] Error:', err);
+    return res.status(500).json({ error: 'Internal error', message: err.message });
   }
-}
-
-export async function onRequestOptions() {
-  return new Response(null, {
-    status: 204,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'POST, OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type',
-    },
-  });
 }
 
 // ═══════════════════════════════════════════════════════
 // CINEMATIC BRIEFING EMAIL — sent to cod3blackagency@gmail.com
-// Neon Noir aesthetic matching codewithsolo.com
 // ═══════════════════════════════════════════════════════
 function buildCinematicBriefingEmail({ name, email, phone, typeName, pages, featureList, timelineName, budgetName, estimate, vision, assets }) {
   const phoneRow = phone ? `
@@ -158,8 +148,6 @@ function buildCinematicBriefingEmail({ name, email, phone, typeName, pages, feat
     <tr>
       <td align="center" style="padding:24px 16px;">
         <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color:#111827;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(0,212,255,0.05);">
-
-          <!-- HEADER — Cinematic gradient -->
           <tr>
             <td style="background:linear-gradient(135deg,#0f1326 0%,#1a1a2e 50%,#0f1326 100%);padding:40px 30px;text-align:center;border-bottom:1px solid rgba(0,212,255,0.2);">
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#00d4ff;letter-spacing:3px;margin:0 0 12px;opacity:0.8;">◆ INCOMING TRANSMISSION</p>
@@ -167,8 +155,6 @@ function buildCinematicBriefingEmail({ name, email, phone, typeName, pages, feat
               <p style="font-family:'Courier New',monospace;font-size:13px;color:#2cff8f;margin:0;">via codewithsolo.com</p>
             </td>
           </tr>
-
-          <!-- OPERATIVE DETAILS -->
           <tr>
             <td style="padding:28px 30px 8px;">
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 14px;">OPERATIVE DETAILS</p>
@@ -184,8 +170,6 @@ function buildCinematicBriefingEmail({ name, email, phone, typeName, pages, feat
               </table>
             </td>
           </tr>
-
-          <!-- MISSION PARAMETERS -->
           <tr>
             <td style="padding:24px 30px 8px;">
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#00d4ff;letter-spacing:2px;margin:0 0 14px;">MISSION PARAMETERS</p>
@@ -213,8 +197,6 @@ function buildCinematicBriefingEmail({ name, email, phone, typeName, pages, feat
               </table>
             </td>
           </tr>
-
-          <!-- ESTIMATE BLOCK -->
           <tr>
             <td style="padding:24px 30px;">
               <div style="background:linear-gradient(135deg,#0a1628 0%,#0f1e36 100%);border:1px solid rgba(0,212,255,0.3);border-radius:8px;padding:20px;text-align:center;">
@@ -223,25 +205,18 @@ function buildCinematicBriefingEmail({ name, email, phone, typeName, pages, feat
               </div>
             </td>
           </tr>
-
-          <!-- VISION & ASSETS -->
           ${visionBlock}
           ${assetsBlock}
-
-          <!-- CTA: Reply -->
           <tr>
             <td style="padding:8px 30px 28px;text-align:center;">
               <a href="mailto:${escHtml(email)}" style="display:inline-block;background:linear-gradient(135deg,#00d4ff 0%,#2cff8f 100%);color:#0b0b14;padding:14px 40px;text-decoration:none;border-radius:8px;font-weight:700;font-size:14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;letter-spacing:0.5px;">Reply to ${escHtml(name)}</a>
             </td>
           </tr>
-
-          <!-- FOOTER -->
           <tr>
             <td style="background:linear-gradient(135deg,#0a0e1a 0%,#0f1326 100%);padding:20px 30px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;">
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#4a5568;margin:0;">◆ codewithsolo.com — Cod3BlackAgency</p>
             </td>
           </tr>
-
         </table>
       </td>
     </tr>
@@ -263,8 +238,6 @@ function buildConfirmationEmail({ name, typeName, estimate }) {
     <tr>
       <td align="center" style="padding:24px 16px;">
         <table width="600" border="0" cellspacing="0" cellpadding="0" style="background-color:#111827;border-radius:12px;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5),0 0 60px rgba(0,212,255,0.05);">
-
-          <!-- HEADER -->
           <tr>
             <td style="background:linear-gradient(135deg,#0f1326 0%,#1a1a2e 50%,#0f1326 100%);padding:50px 30px;text-align:center;border-bottom:1px solid rgba(0,212,255,0.2);">
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#2cff8f;letter-spacing:3px;margin:0 0 16px;">◆ TRANSMISSION CONFIRMED</p>
@@ -272,8 +245,6 @@ function buildConfirmationEmail({ name, typeName, estimate }) {
               <p style="font-family:'Courier New',monospace;font-size:12px;color:rgba(255,255,255,0.5);margin:0;">codewithsolo.com</p>
             </td>
           </tr>
-
-          <!-- CONTENT -->
           <tr>
             <td style="padding:36px 30px;line-height:1.7;color:#c8d0e0;">
               <p style="font-size:16px;margin:0 0 20px;">Hey ${escHtml(firstName)},</p>
@@ -286,22 +257,17 @@ function buildConfirmationEmail({ name, typeName, estimate }) {
               <p style="font-size:15px;margin:0 0 20px;color:#9ca3af;">In the meantime, feel free to reply to this email with any additional details, references, or inspiration — the more context, the sharper the build.</p>
             </td>
           </tr>
-
-          <!-- CTA -->
           <tr>
             <td style="padding:0 30px 32px;text-align:center;">
               <a href="https://codewithsolo.com" style="display:inline-block;background:linear-gradient(135deg,#00d4ff 0%,#2cff8f 100%);color:#0b0b14;padding:14px 36px;text-decoration:none;border-radius:8px;font-weight:700;font-size:14px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;">View Portfolio</a>
             </td>
           </tr>
-
-          <!-- FOOTER -->
           <tr>
             <td style="background:linear-gradient(135deg,#0a0e1a 0%,#0f1326 100%);padding:24px 30px;border-top:1px solid rgba(255,255,255,0.06);text-align:center;">
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#4a5568;margin:0 0 4px;">Solomon Watkins — Cod3BlackAgency</p>
               <p style="font-family:'Courier New',monospace;font-size:11px;color:#4a5568;margin:0;">Ship fast. Ship polished. Ship solo.</p>
             </td>
           </tr>
-
         </table>
       </td>
     </tr>
