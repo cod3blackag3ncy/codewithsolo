@@ -65,27 +65,41 @@ export default async function handler(req, res) {
 
     const confirmationHtml = buildConfirmationEmail({ name, typeName, estimate });
 
+    // Priority headers — ensure inbox placement, not spam/promotions
+    const priorityHeaders = {
+      'X-Priority': '1',
+      'X-MSMail-Priority': 'High',
+      'Importance': 'high',
+      'X-Mailer': 'codewithsolo.com',
+      'X-Entity-Ref-ID': `briefing-${Date.now()}`,
+    };
+
     // Send both emails via Resend — using mail.codewithsolo.com (verified domain)
     const [internalRes, confirmRes] = await Promise.all([
       fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'Mission Briefing <noreply@mail.codewithsolo.com>',
+          from: 'Solomon Watkins <noreply@mail.codewithsolo.com>',
           to: ['cod3blackagency@gmail.com'],
-          subject: `🎯 Mission Briefing: ${typeName} — ${name}`,
+          subject: `Mission Briefing: ${typeName} — ${name}`,
           html: internalHtml,
           reply_to: email,
+          headers: priorityHeaders,
+          tags: [{ name: 'category', value: 'briefing' }],
         }),
       }),
       fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'Cod3BlackAgency <noreply@mail.codewithsolo.com>',
+          from: 'Solomon Watkins // Cod3BlackAgency <noreply@mail.codewithsolo.com>',
           to: [email],
-          subject: `Mission Received — codewithsolo.com`,
+          subject: `Your project briefing — codewithsolo.com`,
           html: confirmationHtml,
+          reply_to: 'cod3blackagency@gmail.com',
+          headers: priorityHeaders,
+          tags: [{ name: 'category', value: 'confirmation' }],
         }),
       }),
     ]);
