@@ -631,24 +631,55 @@
       var assets = document.getElementById('brief-assets')?.value || '';
       var phone = document.getElementById('brief-phone')?.value || '';
 
-      var subject = 'Mission Briefing: ' + (briefState.type || 'General') + ' — via codewithsolo.com';
-      var body = 'MISSION BRIEFING — codewithsolo.com\n';
-      body += '================================\n\n';
-      body += 'Name: ' + name + '\n';
-      body += 'Email: ' + email + '\n';
-      if (phone) body += 'Phone: ' + phone + '\n';
-      body += '\nProject Type: ' + (briefState.type || 'Not specified') + '\n';
-      body += 'Pages/Screens: ' + briefState.pages + '\n';
-      body += 'Features: ' + (briefState.features.length > 0 ? briefState.features.join(', ') : 'None selected') + '\n';
-      body += 'Timeline: ' + (briefState.timeline || 'Not specified') + '\n';
-      body += 'Budget: ' + (briefState.budget || 'Not specified') + '\n';
-      body += 'Estimate: ' + (estTotal?.textContent || 'N/A') + '\n';
-      body += '\nVision:\n' + vision + '\n';
-      body += '\nExisting Assets:\n' + assets + '\n';
+      var payload = {
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        type: briefState.type,
+        pages: briefState.pages,
+        features: briefState.features,
+        timeline: briefState.timeline,
+        budget: briefState.budget,
+        estimate: estTotal?.textContent || 'N/A',
+        vision: vision.trim(),
+        assets: assets.trim(),
+      };
 
-      var mailtoLink = 'mailto:cod3blackagency@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
-      window.location.href = mailtoLink;
-      showToast('> Briefing transmitted — check your email client');
+      briefSubmit.disabled = true;
+      briefSubmit.textContent = '⏳ Transmitting…';
+
+      fetch('/api/briefing', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      })
+        .then(function(res) { return res.json().then(function(d) { return { ok: res.ok, data: d }; }); })
+        .then(function(result) {
+          if (result.ok) {
+            showToast('> Briefing transmitted — confirmation sent to ' + email.trim());
+            briefSubmit.textContent = '✅ Briefing Sent';
+          } else {
+            throw new Error(result.data.error || 'Transmission failed');
+          }
+        })
+        .catch(function(err) {
+          console.warn('[BRIEF] API error, falling back to mailto:', err);
+          var subject = 'Mission Briefing: ' + (briefState.type || 'General') + ' — via codewithsolo.com';
+          var body = 'MISSION BRIEFING — codewithsolo.com\n================================\n\n';
+          body += 'Name: ' + name + '\nEmail: ' + email + '\n';
+          if (phone) body += 'Phone: ' + phone + '\n';
+          body += '\nProject Type: ' + (briefState.type || 'Not specified') + '\n';
+          body += 'Pages/Screens: ' + briefState.pages + '\n';
+          body += 'Features: ' + (briefState.features.length > 0 ? briefState.features.join(', ') : 'None selected') + '\n';
+          body += 'Timeline: ' + (briefState.timeline || 'Not specified') + '\n';
+          body += 'Budget: ' + (briefState.budget || 'Not specified') + '\n';
+          body += 'Estimate: ' + (estTotal?.textContent || 'N/A') + '\n';
+          body += '\nVision:\n' + vision + '\n\nExisting Assets:\n' + assets + '\n';
+          window.location.href = 'mailto:cod3blackagency@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+          showToast('> Redirecting to email client…');
+          briefSubmit.disabled = false;
+          briefSubmit.textContent = '📡 Transmit Briefing';
+        });
     });
   }
 
