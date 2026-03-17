@@ -74,16 +74,15 @@ export default async function handler(req, res) {
       'X-Entity-Ref-ID': `briefing-${Date.now()}`,
     };
 
-    // Send both emails via Resend
-    // Using onboarding@resend.dev (Resend's verified sender) for guaranteed delivery
-    // Custom domain mail.codewithsolo.com lacks DMARC → Gmail silently drops emails
+    // Send both emails via Resend using mail.codewithsolo.com (verified domain)
+    // Internal briefing goes to BOTH cod3blackagency AND silverwatkins for redundancy
     const [internalRes, confirmRes] = await Promise.all([
       fetch('https://api.resend.com/emails', {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'codewithsolo.com <onboarding@resend.dev>',
-          to: ['cod3blackagency@gmail.com'],
+          from: 'codewithsolo.com <noreply@mail.codewithsolo.com>',
+          to: ['cod3blackagency@gmail.com', 'silverwatkins@gmail.com'],
           subject: `Mission Briefing: ${typeName} — ${name}`,
           html: internalHtml,
           reply_to: email,
@@ -95,7 +94,7 @@ export default async function handler(req, res) {
         method: 'POST',
         headers: { Authorization: `Bearer ${RESEND_API_KEY}`, 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          from: 'codewithsolo.com <onboarding@resend.dev>',
+          from: 'codewithsolo.com <noreply@mail.codewithsolo.com>',
           to: [email],
           subject: `Your project briefing — codewithsolo.com`,
           html: confirmationHtml,
