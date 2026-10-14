@@ -1,802 +1,277 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-  <meta name="theme-color" content="#1a1a2e">
-  <meta name="description" content="Solomon Watkins — Solo developer shipping cinematic web experiences with AI-assisted velocity. Web Dev, Branding, Mobile Apps, AI/ML.">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="codewithsolo">
-  <title>codewithsolo — Solomon Watkins // Cod3BlackAgency</title>
-  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#101713">
+  <meta name="description" content="CodeWithSolo by Cod3BlackAgency builds practical websites, customer intake, booking and ordering systems, and automations for small businesses. Clear scope, ownership, and support.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="CodeWithSolo | Websites that bring in business. Systems you can run.">
+  <meta property="og:description" content="Get a practical launch site, repair a broken customer flow, or build a system your business can actually manage.">
+  <meta property="og:url" content="https://codewithsolo.com/">
+  <meta name="color-scheme" content="dark">
+  <title>CodeWithSolo — Websites, Business Systems & Automation | Cod3BlackAgency</title>
+  <link rel="canonical" href="https://codewithsolo.com/">
   <link rel="icon" href="/icons/favicon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192.png">
-  <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/style.css?v=20260317-hardening">
-  </head>
+  <link rel="stylesheet" href="/style.css?v=20261015-launch">
+  <script src="/app.js?v=20261015-launch" defer></script>
+</head>
 <body>
-
-  <!-- ═══════════════ SKIP LINK ═══════════════ -->
-  <a href="#main-content" class="skip-link">Skip to content</a>
-
-  <!-- ═══════════════ BOOT OVERLAY ═══════════════ -->
-  <div id="boot-overlay" class="boot-overlay" aria-live="polite">
-    <div class="boot-panel glass neo-border">
-      <div class="boot-header">
-        <span class="boot-dot red"></span>
-        <span class="boot-dot yellow"></span>
-        <span class="boot-dot green"></span>
-        <span class="boot-title">SOLO_TERMINAL v3.0</span>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="header">
+    <nav class="shell nav" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="CodeWithSolo home">
+        <span class="brand-mark" aria-hidden="true">C<span>3</span></span>
+        <span class="brand-stack">CODE<span>WITH</span>SOLO<small>by COD3BLACKAGENCY</small></span>
+      </a>
+      <div class="nav-links">
+        <a href="#offers">What we build</a><a href="#intelligence">How we use AI</a><a href="#portfolio">Our work</a><a href="#ownership">Ownership</a>
       </div>
-      <div class="boot-body" id="boot-body">
-        <div class="boot-line" data-delay="0">> initializing codewithsolo…</div>
-        <div class="boot-line" data-delay="400">> loading project modules <span class="cyan">[4 found]</span></div>
-        <div class="boot-line" data-delay="900">> establishing secure channel…</div>
-        <div class="boot-line" data-delay="1400">> decrypting portfolio assets…</div>
-        <div class="boot-line accent" data-delay="2000">> <span class="green">ACCESS GRANTED</span> — SOLOMON WATKINS // CODEWITHSOLO</div>
-      </div>
-      <div class="boot-progress">
-        <div class="boot-progress-bar" id="boot-progress-bar"></div>
-      </div>
-    </div>
-    <button class="boot-skip" id="boot-skip" aria-label="Skip intro">SKIP ▸</button>
-  </div>
-
-  <!-- ═══════════════ SCANLINES OVERLAY ═══════════════ -->
-  <div class="scanlines" aria-hidden="true"></div>
-
-  <!-- ═══════════════ AURORA BACKGROUND ═══════════════ -->
-  <div class="aurora" aria-hidden="true"></div>
-
-  <!-- ═══════════════ COMMAND PALETTE ═══════════════ -->
-  <div class="cmd-backdrop" id="cmd-backdrop" hidden>
-    <div class="cmd-modal glass neo-border" role="dialog" aria-modal="true" aria-labelledby="cmd-title">
-      <div class="cmd-header">
-        <h2 id="cmd-title" class="mono muted" style="display:none;">COMMAND CONSOLE</h2>
-        <span class="mono muted">COMMAND CONSOLE</span>
-        <kbd>ESC</kbd>
-      </div>
-      <input type="text" class="cmd-input" id="cmd-input" placeholder="> type a command…" autocomplete="off" spellcheck="false">
-      <ul class="cmd-list" id="cmd-list">
-        <li data-action="hero"><span class="cmd-icon">◆</span> Go to Top</li>
-        <li data-action="projects"><span class="cmd-icon">◆</span> View Projects</li>
-        <li data-action="pricing"><span class="cmd-icon">◆</span> View Pricing</li>
-        <li data-action="services"><span class="cmd-icon">◆</span> View Services</li>
-        <li data-action="workflow"><span class="cmd-icon">◆</span> Amp Workflow</li>
-        <li data-action="briefing"><span class="cmd-icon">◆</span> Mission Briefing</li>
-        <li data-action="copy-email"><span class="cmd-icon">📧</span> Copy Email Address</li>
-        <li data-action="reboot"><span class="cmd-icon">↻</span> Reboot Sequence</li>
-        <li data-action="install"><span class="cmd-icon">⬇</span> Install PWA</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- ═══════════════ NAV ═══════════════ -->
-  <nav class="nav" id="nav">
-    <a href="#hero" class="nav-brand" aria-label="codewithsolo home">
-      <span class="nav-logo">◆</span>
-      <span class="nav-name">codewithsolo</span>
-    </a>
-    <div class="nav-links">
-      <a href="#projects">Projects</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#services">Services</a>
-      <a href="#briefing">Briefing</a>
-      <button class="nav-cmd" id="nav-cmd-btn" aria-label="Open command palette">
-        <span class="mono">⌘K</span>
-      </button>
-    </div>
-    <button class="nav-mobile-toggle" id="nav-toggle" aria-label="Toggle menu" aria-controls="mobile-nav" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </nav>
-
-  <!-- ═══════════════ MOBILE NAV ═══════════════ -->
-  <div class="mobile-nav" id="mobile-nav" hidden>
-    <a href="#projects" class="mobile-nav-link">Projects</a>
-    <a href="#pricing" class="mobile-nav-link">Pricing</a>
-    <a href="#services" class="mobile-nav-link">Services</a>
-    <a href="#briefing" class="mobile-nav-link">Briefing</a>
-    <button class="mobile-nav-link" id="mobile-cmd-btn">⌘K Command Console</button>
-  </div>
-
-  <main id="main-content">
-
-    <!-- ═══════════════ HERO ═══════════════ -->
-    <section class="hero" id="hero">
-      <div class="hero-inner">
-        <div class="hero-panel glass neo-border reveal">
-          <p class="hero-tag mono">◆ OPERATIVE SOLO — SYSTEM ONLINE</p>
-          <h1 class="hero-title">Solomon Watkins<span class="cyan">.</span></h1>
-          <p class="hero-subtitle">Solo developer shipping <span class="cyan">cinematic web experiences</span> with AI-assisted velocity.</p>
-          <p class="hero-meta mono muted">Cod3BlackAgency &nbsp;·&nbsp; Web Dev &nbsp;·&nbsp; Branding &nbsp;·&nbsp; Mobile &nbsp;·&nbsp; AI/ML</p>
-          <div class="hero-ctas">
-            <a href="#briefing" class="btn btn-primary">Initiate Contact</a>
-            <a href="#projects" class="btn btn-secondary">View Missions ▸</a>
-          </div>
+      <a class="button button-small button-accent" href="#start">Get a scoped plan <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main id="main">
+    <section class="hero shell" id="top" aria-labelledby="main-heading">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot" aria-hidden="true"></span> AVAILABLE FOR SCOPED PROJECTS · ATLANTA + REMOTE</p>
+        <h1 id="main-heading">More than a website. <em>A way for your business to work.</em></h1>
+        <p class="hero-lead">A site should turn interest into inquiries, orders, or appointments. The system behind it should be manageable after launch. We build both—with a defined scope, a real handoff, and no mystery maintenance plan.</p>
+        <div class="actions">
+          <a class="button button-accent" href="#start">Tell us what's not working <span aria-hidden="true">↗</span></a>
+          <a class="button button-outline" href="#portfolio">Explore what we build</a>
         </div>
-        <div class="hero-stats reveal" style="--delay:.3s">
-          <div class="stat-card glass">
-            <span class="stat-val cyan">4+</span>
-            <span class="stat-label mono">LIVE PROJECTS</span>
-          </div>
-          <div class="stat-card glass">
-            <span class="stat-val green">AI</span>
-            <span class="stat-label mono">AMP-POWERED</span>
-          </div>
-          <div class="stat-card glass">
-            <span class="stat-val cyan">PWA</span>
-            <span class="stat-label mono">INSTALLABLE</span>
-          </div>
+        <p class="quiet-note">Start with a brief. No purchase or deposit until we agree on the scope.</p>
+      </div>
+      <div class="hero-visual" aria-label="The customer journey we help you build">
+        <div class="visual-top"><span>THE WORKING SYSTEM</span><span class="chip"><i></i> BUSINESS FLOW</span></div>
+        <div class="system-steps">
+          <div class="system-step"><b>01</b><div><strong>Someone finds you</strong><span>A clear site or offer</span></div><span class="step-symbol">↘</span></div>
+          <div class="system-step"><b>02</b><div><strong>They take action</strong><span>Inquiry · Booking · Order</span></div><span class="step-symbol">↘</span></div>
+          <div class="system-step"><b>03</b><div><strong>You know what to do</strong><span>Admin view · Notification · Follow-up</span></div><span class="step-symbol">↘</span></div>
+          <div class="system-step last"><b>04</b><div><strong>They hear back</strong><span>Fulfillment · Updates · Repeat business</span></div><span class="step-symbol">✓</span></div>
         </div>
+        <div class="visual-bottom">DESIGN + OPERATIONS + A CLEAR OWNER</div>
       </div>
     </section>
 
-    <!-- ═══════════════ PROJECTS ═══════════════ -->
-    <section class="projects" id="projects">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">02 //</span> Mission Log</h2>
-        <p class="section-subtitle reveal">Live deployments. All links are operational.</p>
+    <section class="statement" aria-label="Our approach"><div class="shell statement-inner"><span>THE DIFFERENCE</span><p>We don't start by asking which pages you want. <strong>We start with what your business needs to happen.</strong></p></div></section>
 
-        <div class="mission-grid">
-
-          <!-- Mission 01: C3BAI -->
-          <article class="mission-card glass neo-border reveal" data-mission="01">
-            <div class="mission-header">
-              <span class="mission-id mono cyan">MISSION 01</span>
-              <span class="mission-status mono green">● LIVE</span>
-            </div>
-            <h3 class="mission-title">Cod3Black Agency</h3>
-            <p class="mission-desc muted">Full-stack agency site with automated inquiry system, case studies, PWA offline support. Next.js 15 + TypeScript + Tailwind CSS.</p>
-            <div class="mission-tags">
-              <span class="tag">Next.js 15</span>
-              <span class="tag">TypeScript</span>
-              <span class="tag">PWA</span>
-              <span class="tag">Resend</span>
-            </div>
-            <div class="mission-telemetry mono">
-              <div class="tele-row"><span class="muted">STACK</span><span>Next.js · TypeScript · Tailwind</span></div>
-              <div class="tele-row"><span class="muted">INFRA</span><span>Vercel · Upstash Redis</span></div>
-              <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
-            </div>
-            <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary">→ c3bai.vercel.app</a>
-          </article>
-
-          <!-- Mission 02: Taste of Gratitude -->
-          <article class="mission-card glass neo-border reveal" data-mission="02" style="--delay:.15s">
-            <div class="mission-header">
-              <span class="mission-id mono green">MISSION 02</span>
-              <span class="mission-status mono green">● LIVE</span>
-            </div>
-            <h3 class="mission-title">Taste of Gratitude</h3>
-            <p class="mission-desc muted">Boba tea shop — branded ordering system, digital menu, email marketing templates. Full brand identity from logo to web.</p>
-            <div class="mission-tags">
-              <span class="tag">E-Commerce</span>
-              <span class="tag">Branding</span>
-              <span class="tag">Email</span>
-              <span class="tag">Menu System</span>
-            </div>
-            <div class="mission-telemetry mono">
-              <div class="tele-row"><span class="muted">STACK</span><span>Custom Build · Brand Design</span></div>
-              <div class="tele-row"><span class="muted">INFRA</span><span>Custom Domain</span></div>
-              <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
-            </div>
-            <a href="https://tasteofgratitude.shop" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ tasteofgratitude.shop</a>
-          </article>
-
-          <!-- Mission 03: TradeAlerts -->
-          <article class="mission-card glass neo-border reveal" data-mission="03" style="--delay:.3s">
-            <div class="mission-header">
-              <span class="mission-id mono cyan">MISSION 03</span>
-              <span class="mission-status mono green">● LIVE</span>
-            </div>
-            <h3 class="mission-title">TradeAlerts</h3>
-            <p class="mission-desc muted">AI-powered trading signal platform — real-time alerts, subscription system, community chat, push notifications, admin dashboard.</p>
-            <div class="mission-tags">
-              <span class="tag">React Native</span>
-              <span class="tag">Firebase</span>
-              <span class="tag">AI/ML</span>
-              <span class="tag">Subscriptions</span>
-            </div>
-            <div class="mission-telemetry mono">
-              <div class="tele-row"><span class="muted">STACK</span><span>React Native · Firebase</span></div>
-              <div class="tele-row"><span class="muted">PLAN</span><span>$49.99/mo Pro</span></div>
-              <div class="tele-row"><span class="muted">STATUS</span><span class="green">OPERATIONAL</span></div>
-            </div>
-            <a href="https://ktradealerts.vercel.app" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary">→ ktradealerts.vercel.app</a>
-          </article>
-
-          <!-- Mission 04: Beltline Golf -->
-          <article class="mission-card glass neo-border reveal" data-mission="04" style="--delay:.45s">
-            <div class="mission-header">
-              <span class="mission-id mono green">MISSION 04</span>
-              <span class="mission-status mono cyan">◇ CASE STUDY</span>
-            </div>
-            <h3 class="mission-title">Beltline Golf</h3>
-            <p class="mission-desc muted">Golf venue — booking system concept with leaderboard, Stripe payments, digital waivers. Full case study on agency site.</p>
-            <div class="mission-tags">
-              <span class="tag">Booking System</span>
-              <span class="tag">Stripe</span>
-              <span class="tag">Leaderboard</span>
-              <span class="tag">Local Biz</span>
-            </div>
-            <div class="mission-telemetry mono">
-              <div class="tele-row"><span class="muted">STACK</span><span>Next.js · Stripe · Concept</span></div>
-              <div class="tele-row"><span class="muted">INFRA</span><span>Custom Domain</span></div>
-              <div class="tele-row"><span class="muted">STATUS</span><span class="cyan">CASE STUDY</span></div>
-            </div>
-            <a href="https://beltlinegolf.com" target="_blank" rel="noopener noreferrer" class="mission-link btn btn-primary" style="--accent:#2cff8f">→ beltlinegolf.com</a>
-          </article>
-
-        </div>
+    <section class="section shell" id="offers" aria-labelledby="offers-heading">
+      <div class="section-intro"><div><p class="eyebrow">01 / WAYS TO WORK TOGETHER</p><h2 id="offers-heading">Pick the problem. <span>We'll scope the build.</span></h2></div><p>Three practical entry points. We won't sell a full platform when one focused fix will do.</p></div>
+      <div class="offer-grid">
+        <article class="offer featured">
+          <div class="offer-top"><span class="pill">FASTEST START</span><span class="price">$500 <small>introductory one-page scope</small></span></div>
+          <h3>Launch Site</h3>
+          <p>For a business that needs to explain its offer and turn visitors into real inquiries.</p>
+          <ul><li>One responsive, professionally designed page</li><li>Clear contact or request-a-quote action</li><li>Basic search metadata and handoff guide</li><li>Review and launch checks</li></ul>
+          <p class="terms">$250 deposit after a written scope is accepted. Domain, hosting, additional integrations and future edits are separate unless agreed.</p>
+          <a class="offer-link" href="#start" data-offer="launch">Request a Launch Site <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="offer">
+          <div class="offer-top"><span class="pill subtle">CUSTOM SCOPE</span><span class="price">Quoted <small>after diagnosis</small></span></div>
+          <h3>Business Systems</h3>
+          <p>For the owner losing time or revenue between a customer inquiry and a finished job.</p>
+          <ul><li>Booking, ordering, payment or intake workflows</li><li>Admin/CRM and staff roles where needed</li><li>Status updates, follow-up and reporting</li><li>Security, testing and ownership plan</li></ul>
+          <p class="terms">We identify the smallest viable system, then quote implementation, external service costs, and support separately.</p>
+          <a class="offer-link" href="#start" data-offer="system">Describe the workflow <span aria-hidden="true">↗</span></a>
+        </article>
+        <article class="offer">
+          <div class="offer-top"><span class="pill subtle">KEEP IT RUNNING</span><span class="price">Scoped <small>monthly or project basis</small></span></div>
+          <h3>Fixes & Ongoing Care</h3>
+          <p>For a site or workflow that's already live but needs reliability, clearer customer steps, or less manual work.</p>
+          <ul><li>Checkout, forms, performance and UX repairs</li><li>Automation and integration maintenance</li><li>Monitoring and defined support coverage</li><li>Clear change requests and service boundaries</li></ul>
+          <p class="terms">Support is optional. Response commitments and recurring charges are agreed in writing.</p>
+          <a class="offer-link" href="#start" data-offer="repair">Request a repair review <span aria-hidden="true">↗</span></a>
+        </article>
       </div>
     </section>
 
-    <!-- ═══════════════ PRICING INTEL ═══════════════ -->
-    <section class="pricing" id="pricing">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">03 //</span> Pricing Intel</h2>
-        <p class="section-subtitle reveal">Transparent rates. No hidden fees. Fixed-scope projects — you know the cost before we start.</p>
-
-        <div class="pricing-grid reveal" style="--delay:.2s">
-          <div class="price-card glass neo-border">
-            <div class="price-header">
-              <span class="price-tag mono cyan">TIER 01</span>
-              <h3 class="price-name">Landing Pages</h3>
-            </div>
-            <div class="price-amount">
-              <span class="price-from mono muted">FROM</span>
-              <span class="price-val">$500</span>
-            </div>
-            <div class="price-range mono muted">Typical: $900 – $2,000</div>
-            <div class="price-timeline mono">
-              <span class="green">▸</span> 1–3 days turnaround
-            </div>
-            <p class="price-desc muted">High-conversion cinematic landing pages. Design, dev, deploy — all included.</p>
-          </div>
-
-          <div class="price-card glass neo-border">
-            <div class="price-header">
-              <span class="price-tag mono cyan">TIER 02</span>
-              <h3 class="price-name">PWA Deployments</h3>
-            </div>
-            <div class="price-amount">
-              <span class="price-from mono muted">FROM</span>
-              <span class="price-val">$1,200</span>
-            </div>
-            <div class="price-range mono muted">Typical: $1,800 – $3,500</div>
-            <div class="price-timeline mono">
-              <span class="green">▸</span> 2–5 days turnaround
-            </div>
-            <p class="price-desc muted">Offline-ready, installable apps with service workers and push notifications.</p>
-          </div>
-
-          <div class="price-card glass neo-border">
-            <div class="price-header">
-              <span class="price-tag mono green">TIER 03</span>
-              <h3 class="price-name">E-Commerce</h3>
-            </div>
-            <div class="price-amount">
-              <span class="price-from mono muted">FROM</span>
-              <span class="price-val">$2,500</span>
-            </div>
-            <div class="price-range mono muted">Typical: $3,000 – $6,000</div>
-            <div class="price-timeline mono">
-              <span class="green">▸</span> 1–2 weeks turnaround
-            </div>
-            <p class="price-desc muted">Full storefronts with Stripe, inventory, menus, and branded checkout flows.</p>
-          </div>
-
-          <div class="price-card glass neo-border">
-            <div class="price-header">
-              <span class="price-tag mono green">TIER 04</span>
-              <h3 class="price-name">Mobile Apps</h3>
-            </div>
-            <div class="price-amount">
-              <span class="price-from mono muted">FROM</span>
-              <span class="price-val">$3,500</span>
-            </div>
-            <div class="price-range mono muted">Typical: $5,000 – $10,000</div>
-            <div class="price-timeline mono">
-              <span class="green">▸</span> 2–4 weeks turnaround
-            </div>
-            <p class="price-desc muted">Cross-platform React Native apps with subscriptions, real-time data, and offline support.</p>
-          </div>
-
-          <div class="price-card glass neo-border">
-            <div class="price-header">
-              <span class="price-tag mono cyan">TIER 05</span>
-              <h3 class="price-name">Automation & AI</h3>
-            </div>
-            <div class="price-amount">
-              <span class="price-from mono muted">FROM</span>
-              <span class="price-val">$2,000</span>
-            </div>
-            <div class="price-range mono muted">Typical: $3,000 – $6,000</div>
-            <div class="price-timeline mono">
-              <span class="green">▸</span> 1–2 weeks turnaround
-            </div>
-            <p class="price-desc muted">Custom AI pipelines, chatbots, email marketing systems, and DevOps infrastructure.</p>
-          </div>
-
-          <div class="price-card glass neo-border">
-            <div class="price-header">
-              <span class="price-tag mono cyan">TIER 06</span>
-              <h3 class="price-name">Brand Identity</h3>
-            </div>
-            <div class="price-amount">
-              <span class="price-from mono muted">FROM</span>
-              <span class="price-val">$500</span>
-            </div>
-            <div class="price-range mono muted">Typical: $800 – $1,500</div>
-            <div class="price-timeline mono">
-              <span class="green">▸</span> 3–7 days turnaround
-            </div>
-            <p class="price-desc muted">Logo, color systems, typography, email templates, and brand guideline documents.</p>
-          </div>
-        </div>
-
-        <div class="rate-card glass neo-border reveal" style="--delay:.4s">
-          <div class="rate-header mono muted">◆ OPERATIVE RATES</div>
-          <div class="rate-grid">
-            <div class="rate-item">
-              <span class="rate-label mono muted">STANDARD DEV</span>
-              <span class="rate-val cyan">$125<span class="rate-unit">/hr</span></span>
-            </div>
-            <div class="rate-item">
-              <span class="rate-label mono muted">REFERRAL</span>
-              <span class="rate-val green">$65<span class="rate-unit">/hr</span></span>
-            </div>
-            <div class="rate-item">
-              <span class="rate-label mono muted">EMERGENCY</span>
-              <span class="rate-val" style="color:#ff5f57">$175<span class="rate-unit">/hr</span></span>
-            </div>
-            <div class="rate-item">
-              <span class="rate-label mono muted">RETAINER</span>
-              <span class="rate-val cyan">$125<span class="rate-unit">/mo</span></span>
-            </div>
-          </div>
-          <p class="rate-note mono muted">Fixed-scope preferred. Projects over $2,000 use milestone-based billing.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ AMP WORKFLOW ═══════════════ -->
-    <section class="workflow" id="workflow">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">04 //</span> Amp-Driven Workflow</h2>
-        <p class="section-subtitle reveal">AI-augmented development — shipping in hours, not weeks.</p>
-        <div class="pipeline reveal" style="--delay:.2s">
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono cyan">01</span>
-              <h3>Brief</h3>
-              <p class="muted">Define scope, brand direction, technical requirements.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono cyan">02</span>
-              <h3>Prototype</h3>
-              <p class="muted">Rapid wireframing and interactive mockups in hours.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono green">03</span>
-              <h3>Amp Pair-Programming</h3>
-              <p class="muted">AI-assisted code generation with human creative direction.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono cyan">04</span>
-              <h3>QA + Polish</h3>
-              <p class="muted">Cross-browser testing, performance tuning, accessibility audit.</p>
-            </div>
-          </div>
-          <div class="pipe-step">
-            <div class="pipe-dot"></div>
-            <div class="pipe-content glass">
-              <span class="pipe-num mono green">05</span>
-              <h3>Deploy</h3>
-              <p class="muted">Ship to Vercel / Cloudflare Pages with CI/CD pipeline.</p>
-            </div>
-          </div>
-          <div class="pipe-line" aria-hidden="true">
-            <div class="pipe-line-glow"></div>
-          </div>
-        </div>
-        <div class="pipeline-metric glass reveal" style="--delay:.4s">
-          <span class="mono cyan">AVG TURNAROUND:</span>
-          <span class="metric-value">Hours, not weeks.</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ SERVICES ═══════════════ -->
-    <section class="services" id="services">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">05 //</span> Service Modules</h2>
-        <p class="section-subtitle reveal">Select a module to expand operational details.</p>
-
-        <div class="service-accordion reveal" style="--delay:.2s">
-
-          <div class="svc-module" data-module="landing">
-            <button class="svc-header" aria-expanded="false" aria-controls="svc-landing">
-              <span class="svc-led"></span>
-              <span class="svc-name">Landing Systems</span>
-              <span class="svc-outcome mono muted">High-conversion, cinematic web experiences</span>
-              <span class="svc-toggle">+</span>
-            </button>
-            <div class="svc-body" id="svc-landing" role="region" aria-labelledby="svc-landing-title">
-              <p>Custom-designed landing pages that convert visitors into clients. Built with performance-first architecture, PWA support, and mobile-optimized layouts.</p>
-              <div class="svc-spec mono">
-                <span>DELIVERABLES: Design + Dev + Deploy</span>
-                <span>TIMELINE: 1–3 days</span>
-                <span>STARTING: $500 · TYPICAL: $900–$2,000</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="svc-module" data-module="pwa">
-            <button class="svc-header" aria-expanded="false" aria-controls="svc-pwa">
-              <span class="svc-led"></span>
-              <span class="svc-name">PWA Deployments</span>
-              <span class="svc-outcome mono muted">Offline-ready, installable applications</span>
-              <span class="svc-toggle">+</span>
-            </button>
-            <div class="svc-body" id="svc-pwa" role="region">
-              <p>Progressive Web Apps with service workers, manifest configuration, offline fallbacks, and push notification support. Ship to any device.</p>
-              <div class="svc-spec mono">
-                <span>DELIVERABLES: PWA + Service Worker + Manifest</span>
-                <span>TIMELINE: 2–5 days</span>
-                <span>STARTING: $1,200 · TYPICAL: $1,800–$3,500</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="svc-module" data-module="ecom">
-            <button class="svc-header" aria-expanded="false" aria-controls="svc-ecom">
-              <span class="svc-led"></span>
-              <span class="svc-name">E-Commerce Builds</span>
-              <span class="svc-outcome mono muted">Complete digital storefronts with payment systems</span>
-              <span class="svc-toggle">+</span>
-            </button>
-            <div class="svc-body" id="svc-ecom" role="region">
-              <p>Full e-commerce solutions with Stripe integration, inventory management, digital menus, and branded checkout flows. From concept to revenue.</p>
-              <div class="svc-spec mono">
-                <span>DELIVERABLES: Store + Payments + Admin</span>
-                <span>TIMELINE: 1–2 weeks</span>
-                <span>STARTING: $2,500 · TYPICAL: $3,000–$6,000</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="svc-module" data-module="mobile">
-            <button class="svc-header" aria-expanded="false" aria-controls="svc-mobile">
-              <span class="svc-led"></span>
-              <span class="svc-name">Mobile Apps</span>
-              <span class="svc-outcome mono muted">Cross-platform native experiences</span>
-              <span class="svc-toggle">+</span>
-            </button>
-            <div class="svc-body" id="svc-mobile" role="region">
-              <p>React Native and PWA mobile applications with push notifications, real-time data, subscription systems, and offline support.</p>
-              <div class="svc-spec mono">
-                <span>DELIVERABLES: iOS + Android + Backend</span>
-                <span>TIMELINE: 2–4 weeks</span>
-                <span>STARTING: $3,500 · TYPICAL: $5,000–$10,000</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="svc-module" data-module="automation">
-            <button class="svc-header" aria-expanded="false" aria-controls="svc-automation">
-              <span class="svc-led"></span>
-              <span class="svc-name">Automation & AI</span>
-              <span class="svc-outcome mono muted">AI-powered workflows, bots, and integrations</span>
-              <span class="svc-toggle">+</span>
-            </button>
-            <div class="svc-body" id="svc-automation" role="region">
-              <p>Custom automation pipelines, AI/ML integrations, chatbots, email marketing systems, and DevOps infrastructure. Let machines handle the repetitive work.</p>
-              <div class="svc-spec mono">
-                <span>DELIVERABLES: System + Integration + Docs</span>
-                <span>TIMELINE: 1–2 weeks</span>
-                <span>STARTING: $2,000 · TYPICAL: $3,000–$6,000</span>
-              </div>
-            </div>
-          </div>
-
-          <div class="svc-module" data-module="brand">
-            <button class="svc-header" aria-expanded="false" aria-controls="svc-brand">
-              <span class="svc-led"></span>
-              <span class="svc-name">Brand Identity</span>
-              <span class="svc-outcome mono muted">Logo, palette, typography, brand guidelines</span>
-              <span class="svc-toggle">+</span>
-            </button>
-            <div class="svc-body" id="svc-brand" role="region">
-              <p>Complete brand identity packages — logo design, color systems, typography pairing, email templates, and brand guideline documents. Your identity, crafted to command attention.</p>
-              <div class="svc-spec mono">
-                <span>DELIVERABLES: Logo + Guidelines + Templates</span>
-                <span>TIMELINE: 3–7 days</span>
-                <span>STARTING: $500 · TYPICAL: $800–$1,500</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ MISSION BRIEFING ═══════════════ -->
-    <section class="briefing" id="briefing">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">06 //</span> Mission Briefing</h2>
-        <p class="section-subtitle reveal">Define your mission. Get a live estimate. I'll respond within 24 hours.</p>
-
-        <div class="briefing-layout reveal" style="--delay:.2s">
-          <!-- Form Panel -->
-          <div class="briefing-form glass neo-border">
-            <div class="brief-header">
-              <span class="boot-dot green"></span>
-              <span class="brief-title mono muted">MISSION_INTAKE v1.0</span>
-              <span class="brief-step mono cyan" id="brief-step-label">STEP 1/5</span>
-            </div>
-
-            <!-- Progress bar -->
-            <div class="brief-progress">
-              <div class="brief-progress-bar" id="brief-progress-bar" style="width:20%"></div>
-            </div>
-
-            <!-- Step 1: Project Type -->
-            <div class="brief-step-panel" id="brief-step-1">
-              <p class="brief-prompt mono">> Select mission type:</p>
-              <div class="brief-options" id="brief-type-options">
-                <button class="brief-option" data-type="landing" data-base="500">
-                  <span class="brief-opt-icon cyan">◆</span>
-                  <span class="brief-opt-name">Landing Page</span>
-                  <span class="brief-opt-price mono muted">from $500</span>
-                </button>
-                <button class="brief-option" data-type="pwa" data-base="1200">
-                  <span class="brief-opt-icon cyan">◆</span>
-                  <span class="brief-opt-name">PWA Deployment</span>
-                  <span class="brief-opt-price mono muted">from $1,200</span>
-                </button>
-                <button class="brief-option" data-type="ecommerce" data-base="2500">
-                  <span class="brief-opt-icon green">◆</span>
-                  <span class="brief-opt-name">E-Commerce Build</span>
-                  <span class="brief-opt-price mono muted">from $2,500</span>
-                </button>
-                <button class="brief-option" data-type="mobile" data-base="3500">
-                  <span class="brief-opt-icon green">◆</span>
-                  <span class="brief-opt-name">Mobile App</span>
-                  <span class="brief-opt-price mono muted">from $3,500</span>
-                </button>
-                <button class="brief-option" data-type="automation" data-base="2000">
-                  <span class="brief-opt-icon cyan">◆</span>
-                  <span class="brief-opt-name">Automation & AI</span>
-                  <span class="brief-opt-price mono muted">from $2,000</span>
-                </button>
-                <button class="brief-option" data-type="brand" data-base="500">
-                  <span class="brief-opt-icon cyan">◆</span>
-                  <span class="brief-opt-name">Brand Identity</span>
-                  <span class="brief-opt-price mono muted">from $500</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Step 2: Scope -->
-            <div class="brief-step-panel" id="brief-step-2" hidden>
-              <p class="brief-prompt mono">> Define mission scope:</p>
-              <div class="brief-field">
-                <label class="brief-label mono muted">PAGES / SCREENS</label>
-                <div class="brief-range-row">
-                  <input type="range" class="brief-range" id="brief-pages" min="1" max="20" value="3">
-                  <span class="brief-range-val mono cyan" id="brief-pages-val">3</span>
-                </div>
-              </div>
-              <div class="brief-field">
-                <label class="brief-label mono muted">KEY FEATURES</label>
-                <div class="brief-checks">
-                  <label class="brief-check"><input type="checkbox" value="auth" data-cost="300"> <span>User Auth</span></label>
-                  <label class="brief-check"><input type="checkbox" value="payments" data-cost="500"> <span>Payments/Stripe</span></label>
-                  <label class="brief-check"><input type="checkbox" value="cms" data-cost="400"> <span>CMS / Admin</span></label>
-                  <label class="brief-check"><input type="checkbox" value="api" data-cost="350"> <span>API Integration</span></label>
-                  <label class="brief-check"><input type="checkbox" value="email" data-cost="200"> <span>Email System</span></label>
-                  <label class="brief-check"><input type="checkbox" value="analytics" data-cost="150"> <span>Analytics</span></label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 3: Timeline & Budget -->
-            <div class="brief-step-panel" id="brief-step-3" hidden>
-              <p class="brief-prompt mono">> Timeline & budget parameters:</p>
-              <div class="brief-field">
-                <label class="brief-label mono muted">TIMELINE PREFERENCE</label>
-                <div class="brief-options brief-options-sm">
-                  <button class="brief-option brief-option-sm" data-timeline="rush" data-mult="1.5">
-                    <span class="brief-opt-name">🔥 Rush (ASAP)</span>
-                  </button>
-                  <button class="brief-option brief-option-sm" data-timeline="standard" data-mult="1">
-                    <span class="brief-opt-name">⚡ Standard</span>
-                  </button>
-                  <button class="brief-option brief-option-sm" data-timeline="flexible" data-mult="0.9">
-                    <span class="brief-opt-name">🕐 Flexible</span>
-                  </button>
-                </div>
-              </div>
-              <div class="brief-field">
-                <label class="brief-label mono muted">BUDGET RANGE</label>
-                <div class="brief-options brief-options-sm">
-                  <button class="brief-option brief-option-sm" data-budget="under1k">Under $1K</button>
-                  <button class="brief-option brief-option-sm" data-budget="1k-3k">$1K – $3K</button>
-                  <button class="brief-option brief-option-sm" data-budget="3k-5k">$3K – $5K</button>
-                  <button class="brief-option brief-option-sm" data-budget="5k-10k">$5K – $10K</button>
-                  <button class="brief-option brief-option-sm" data-budget="10k+">$10K+</button>
-                </div>
-              </div>
-            </div>
-
-            <!-- Step 4: Vision -->
-            <div class="brief-step-panel" id="brief-step-4" hidden>
-              <p class="brief-prompt mono">> Describe your vision:</p>
-              <div class="brief-field">
-                <label class="brief-label mono muted">PROJECT DESCRIPTION</label>
-                <textarea class="brief-textarea" id="brief-vision" rows="4" placeholder="What are you building? Who is it for? Any inspiration or references?"></textarea>
-              </div>
-              <div class="brief-field">
-                <label class="brief-label mono muted">EXISTING ASSETS</label>
-                <textarea class="brief-textarea" id="brief-assets" rows="2" placeholder="Logo, brand colors, domain, existing site, content..."></textarea>
-              </div>
-            </div>
-
-            <!-- Step 5: Contact -->
-            <div class="brief-step-panel" id="brief-step-5" hidden>
-              <p class="brief-prompt mono">> Secure channel details:</p>
-              <div class="brief-field">
-                <label class="brief-label mono muted">YOUR NAME</label>
-                <input type="text" class="brief-input" id="brief-name" placeholder="Full name">
-              </div>
-              <div class="brief-field">
-                <label class="brief-label mono muted">EMAIL</label>
-                <input type="email" class="brief-input" id="brief-email" placeholder="you@example.com">
-              </div>
-              <div class="brief-field">
-                <label class="brief-label mono muted">PHONE (optional)</label>
-                <input type="tel" class="brief-input" id="brief-phone" placeholder="(xxx) xxx-xxxx">
-              </div>
-            </div>
-
-            <!-- Nav buttons -->
-            <div class="brief-nav">
-              <button class="btn btn-secondary" id="brief-back" hidden>← Back</button>
-              <button class="btn btn-primary" id="brief-next">Next →</button>
-              <button class="btn btn-primary" id="brief-submit" hidden style="--accent:var(--green)">📡 Transmit Briefing</button>
-            </div>
-          </div>
-
-          <!-- Estimate Panel -->
-          <div class="estimate-panel glass neo-border">
-            <div class="est-header mono muted">◆ LIVE ESTIMATE</div>
-            <div class="est-body">
-              <div class="est-row">
-                <span class="est-label mono muted">TYPE</span>
-                <span class="est-val mono" id="est-type">—</span>
-              </div>
-              <div class="est-row">
-                <span class="est-label mono muted">SCOPE</span>
-                <span class="est-val mono" id="est-scope">—</span>
-              </div>
-              <div class="est-row">
-                <span class="est-label mono muted">FEATURES</span>
-                <span class="est-val mono" id="est-features">—</span>
-              </div>
-              <div class="est-row">
-                <span class="est-label mono muted">TIMELINE</span>
-                <span class="est-val mono" id="est-timeline">—</span>
-              </div>
-              <div class="est-divider"></div>
-              <div class="est-row est-total">
-                <span class="est-label mono">ESTIMATED RANGE</span>
-                <span class="est-val mono cyan" id="est-total">$0 – $0</span>
-              </div>
-            </div>
-            <p class="est-note mono muted">Estimate updates live. Final quote after briefing review.</p>
-
-            <!-- Fallback contact below estimate -->
-            <div class="est-fallback">
-              <div class="est-divider"></div>
-              <p class="mono muted" style="font-size:.75rem;margin-bottom:12px">Or reach out directly:</p>
-              <div class="contact-actions" style="justify-content:flex-start">
-                <a href="mailto:cod3blackagency@gmail.com?subject=Mission%20Briefing%20—%20via%20codewithsolo.com" class="btn btn-secondary btn-sm">📧 Email</a>
-                <button class="btn btn-secondary btn-sm" id="copy-email-btn-2">📋 Copy Email</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══════════════ OPERATIONAL LOG ═══════════════ -->
-    <section class="op-log" id="log">
-      <div class="container">
-        <h2 class="section-title reveal"><span class="mono muted">07 //</span> Operational Log</h2>
-        <div class="log-entries reveal" style="--delay:.15s">
-          <div class="log-entry glass">
-            <span class="log-time mono muted">2024–2026</span>
-            <span class="log-msg"><span class="green">▸</span> Shipped <span class="cyan">4+ production sites</span> across Vercel & Cloudflare Pages</span>
-          </div>
-          <div class="log-entry glass">
-            <span class="log-time mono muted">PERF</span>
-            <span class="log-msg"><span class="green">▸</span> Lighthouse scores <span class="cyan">90+</span> across all deployments</span>
-          </div>
-          <div class="log-entry glass">
-            <span class="log-time mono muted">STACK</span>
-            <span class="log-msg"><span class="green">▸</span> Next.js · React Native · TypeScript · Firebase · <span class="cyan">Amp AI</span></span>
-          </div>
-          <div class="log-entry glass">
-            <span class="log-time mono muted">MOTTO</span>
-            <span class="log-msg"><span class="green">▸</span> "Ship fast. Ship polished. <span class="cyan">Ship solo.</span>"</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ═══════════════ FOOTER ═══════════════ -->
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div class="footer-brand">
-         <span class="mono cyan">░▒▓ COD3BLACKAGENCY ▓▒░</span>
-         <p class="muted">— Solomon Watkins</p>
-         <p class="muted small">Web Dev · Branding · Mobile Apps · AI/ML</p>
-       </div>
-       <div class="footer-links">
-         <a href="mailto:cod3blackagency@gmail.com">cod3blackagency@gmail.com</a>
-        <a href="#pricing">Pricing</a>
-        <a href="https://c3bai.vercel.app" target="_blank" rel="noopener noreferrer">c3bai.vercel.app</a>
-        <a href="https://codewithsolo.com">codewithsolo.com</a>
-      </div>
-      <button class="footer-reboot mono" id="reboot-btn">> reboot ↑</button>
-    </div>
-  </footer>
-
-  <!-- ═══════════════ TOAST ═══════════════ -->
-  <div class="toast" id="toast" hidden aria-live="polite">
-    <span class="mono" id="toast-msg">> address copied to clipboard</span>
-  </div>
-
-  <!-- ═══════════════ PWA INSTALL BANNER ═══════════════ -->
-  <div class="install-banner glass" id="install-banner" hidden>
-    <span class="mono" id="install-msg">⬇ Install codewithsolo as an app</span>
-    <button class="btn btn-primary btn-sm" id="install-btn">Install</button>
-    <button class="install-dismiss" id="install-dismiss" aria-label="Dismiss">✕</button>
-  </div>
-
-  <!-- ═══════════════ iOS INSTALL INSTRUCTIONS ═══════════════ -->
-  <div class="install-instructions glass" id="ios-install-instructions" hidden>
-    <div class="install-content">
-      <h3 class="mono">📱 Install on iOS</h3>
-      <ol class="mono" style="font-size: 0.9rem; line-height: 1.8; margin: 12px 0; padding-left: 20px;">
-        <li>Tap the <strong>Share</strong> button (square with arrow up)</li>
-        <li>Tap <strong>"Add to Home Screen"</strong></li>
-        <li>Confirm by tapping <strong>"Add"</strong></li>
+    <section class="section shell split-section" id="process" aria-labelledby="process-heading">
+      <div class="split-heading"><p class="eyebrow">02 / WHAT HAPPENS NEXT</p><h2 id="process-heading">No surprise build. <span>No vague finish line.</span></h2><p>Getting a quote is not a commitment. We decide together whether the problem needs a site, a workflow, an integration, or no new software at all.</p></div>
+      <ol class="process-list">
+        <li><b>01</b><div><h3>Tell us the problem</h3><p>What do customers need to do? Where are requests getting lost? What are you using today?</p></div></li>
+        <li><b>02</b><div><h3>Review a scoped plan</h3><p>Deliverables, timeline, ownership, dependencies, price, payment milestones and support are spelled out before work starts.</p></div></li>
+        <li><b>03</b><div><h3>Build, review, test</h3><p>We review a working version, test critical customer/admin flows and make agreed corrections before release.</p></div></li>
+        <li><b>04</b><div><h3>Launch and hand off</h3><p>We document who operates the site, how updates happen, and whether you want optional managed support.</p></div></li>
       </ol>
-      <button class="install-dismiss" id="ios-instructions-dismiss" aria-label="Dismiss">✕</button>
-    </div>
-  </div>
+    </section>
 
-  <script src="/app.js?v=20260317-hardening"></script>
-  <script src="/cache-bust.js?v=20260317-hardening"></script>
+    <section class="section shell" id="ownership" aria-labelledby="owner-heading">
+      <div class="section-intro"><div><p class="eyebrow">03 / THE QUESTIONS THAT MATTER</p><h2 id="owner-heading">Who owns it? <span>Who runs it?</span></h2></div><p>These decisions happen in the proposal, not after you discover an invoice or an admin panel you can't use.</p></div>
+      <div class="answer-grid">
+        <div class="answer"><span class="answer-num">A / OWNERSHIP</span><h3>Your accounts, your business</h3><p>We specify domain, hosting, third-party subscriptions, source access, licenses and deliverable ownership. Agreed handoff takes place after final payment.</p></div>
+        <div class="answer"><span class="answer-num">B / MANAGEMENT</span><h3>Admin panel only if you need one</h3><p>Simple brochure pages can use a lightweight update process. Booking, orders and customer records call for an appropriate admin/CRM with roles and permissions.</p></div>
+        <div class="answer"><span class="answer-num">C / AFTER LAUNCH</span><h3>Support is a choice</h3><p>We separate bug fixes, content changes, hosting fees, platform subscriptions and new features. Managed support is priced and agreed separately.</p></div>
+      </div>
+    </section>
+
+    <section class="ai-section section shell" id="intelligence" aria-labelledby="intelligence-heading">
+ <div class="ai-intro">
+  <div><p class="eyebrow">04 / THE CAPABILITY BEHIND THE WORK</p><h2 id="intelligence-heading">AI isn't the product. <span>What we make it accomplish is.</span></h2></div>
+  <p>Anyone can ask AI for a website. Our job is to design the work, connect the right tools, control what changes, validate the result and turn it into an operation the business can actually use.</p>
+ </div>
+ <div class="ai-systems">
+  <div class="ai-explainer">
+   <div class="system-label"><span class="signal"></span> HOW WE DIRECT INTELLIGENCE</div>
+   <div class="ai-sequence">
+    <div class="ai-stage"><span>01</span><div><strong>Define the outcome</strong><p>Find the bottleneck, the customer action, the operator and the measurable result.</p></div></div>
+    <div class="ai-stage"><span>02</span><div><strong>Design the work</strong><p>Separate decisions, data, permissions and repeatable actions into a practical workflow.</p></div></div>
+    <div class="ai-stage"><span>03</span><div><strong>Build and connect</strong><p>Use code, AI assistance and appropriate integrations for sites, forms, CRM, payment, alerts and operations.</p></div></div>
+    <div class="ai-stage"><span>04</span><div><strong>Verify and improve</strong><p>Test what customers actually do, document failures and make corrections before claiming success.</p></div></div>
+   </div>
+   <div class="system-principle"><strong>Human-directed. Testable. Maintainable.</strong><p>Automation should reduce repeat work—not create an invisible, unaccountable black box.</p></div>
+  </div>
+  <div class="ai-demo">
+   <div class="demo-head"><div class="demo-kicker">BUSINESS SCENARIO EXPLORER</div><span>Choose a business need</span></div>
+   <div class="demo-tabs" role="group" aria-label="Business examples">
+    <button type="button" class="demo-tab active" data-scenario="retail" aria-pressed="true">Food & retail</button>
+    <button type="button" class="demo-tab" data-scenario="service" aria-pressed="false">Service business</button>
+    <button type="button" class="demo-tab" data-scenario="nonprofit" aria-pressed="false">Organization</button>
+   </div>
+   <div class="scenario-panel" aria-live="polite">
+    <p class="scenario-tag">THE PROBLEM</p><h3 id="scenario-problem">Orders arrive in different places. Availability and pickup timing are confusing.</h3>
+    <div class="scenario-arrow" aria-hidden="true">↓</div>
+    <p class="scenario-tag">A PRACTICAL SYSTEM</p><p id="scenario-solution">One customer ordering path, consistent product availability, an operator dashboard and clear pickup or delivery updates. AI can help identify exceptions, draft responses and assist the team—while the underlying order rules remain deterministic.</p>
+    <div class="scenario-footer"><span>WHAT TO MEASURE</span><strong id="scenario-metric">Completed orders · failed checkouts · response time</strong></div>
+   </div>
+   <a href="#start" class="demo-cta">Map this to my business <span aria-hidden="true">↗</span></a>
+  </div>
+ </div>
+ <div class="agent-note"><span class="agent-kicker">BEHIND THE SCENES / OPEE MAX</span><p>We are developing an internal orchestration environment for connecting agents, devices, development tools and verification steps. Its purpose is reliable execution and evidence—not pretending every prototype is autonomous or production-certified.</p><a href="#portfolio">See the systems we've built <span aria-hidden="true">↗</span></a></div>
+</section>
+
+<section class="section shell portfolio-section" id="portfolio" aria-labelledby="portfolio-heading">
+ <div class="section-intro portfolio-intro"><div><p class="eyebrow">05 / SELECTED BUILDS & EXPERIMENTS</p><h2 id="portfolio-heading">A studio that <span>ships and learns.</span></h2></div><p>Explore live websites, deployed prototypes and internal research. Each project is labeled by its actual stage. Public links open the project; restricted and in-progress work isn't presented as finished.</p></div>
+ <div class="portfolio-toolbar"><div class="portfolio-tabs" role="group" aria-label="Filter projects"><button class="portfolio-tab is-active" data-filter="all" aria-pressed="true">All projects</button><button class="portfolio-tab" data-filter="client" aria-pressed="false">Business & client</button><button class="portfolio-tab" data-filter="product" aria-pressed="false">Products & platforms</button><button class="portfolio-tab" data-filter="research" aria-pressed="false">AI & research</button></div><span class="portfolio-count" id="portfolio-count">11 selected projects</span></div>
+ <div class="project-grid" id="project-grid">
+  <article class="project-card" data-category="client" data-stage="live">
+   <div class="project-cover cover-gratitude"><div class="browser-chrome"><span></span><span></span><span></span><small>tasteofgratitude.shop</small></div><div class="cover-layout gratitude-layout"><span class="mini-script">Taste of Gratitude</span><div class="gratitude-orb"><i></i></div><strong>Fresh sips.<br>Made with care.</strong><div class="mini-pills"><b>LEMONADES</b><b>SEA MOSS</b></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-live">LIVE BUSINESS</span><span>Commerce + operations</span></div><h3>Taste of Gratitude</h3><p>Customer ordering, product availability, checkout and pickup workflows for a growing beverage business. Operational consistency is ongoing work.</p><a class="project-link" href="https://tasteofgratitude.shop/" target="_blank" rel="noopener noreferrer">Explore website <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="client" data-stage="live">
+   <div class="project-cover cover-nhbbi"><div class="browser-chrome"><span></span><span></span><span></span><small>nhbbi.vercel.app</small></div><div class="cover-layout nhbbi-layout"><span class="tiny-overline">BRONNER BUSINESS INSTITUTE</span><strong>Build.<br>Grow.<br><em>Lead.</em></strong><span class="fake-button">Explore programs →</span></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-live">PUBLIC SITE</span><span>Programs + client journeys</span></div><h3>Bronner Business Institute</h3><p>Multi-page program experience with authentication, administrative and payment-integration work. End-to-end client workflow certification is still underway.</p><a class="project-link" href="https://nhbbi.vercel.app/" target="_blank" rel="noopener noreferrer">Explore website <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="client" data-stage="live">
+   <div class="project-cover cover-asca"><div class="browser-chrome"><span></span><span></span><span></span><small>asca-pwa.vercel.app</small></div><div class="cover-layout asca-layout"><span class="tiny-overline">ATLANTA SADDLE CLUB ASSOCIATION</span><strong>We Ride<br>To Inspire.</strong><div class="asca-bars"><i></i><i></i><i></i></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-live">PUBLIC SITE</span><span>Organization + gallery</span></div><h3>Atlanta Saddle Club Association</h3><p>Mobile-friendly association experience with event and gallery administration. Some gallery upload and visibility issues remain under repair.</p><a class="project-link" href="https://asca-pwa.vercel.app/" target="_blank" rel="noopener noreferrer">Explore website <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="client" data-stage="live">
+   <div class="project-cover cover-golf"><div class="browser-chrome"><span></span><span></span><span></span><small>beltlinegolf.com</small></div><div class="cover-layout golf-layout"><span class="tiny-overline">INDOOR GOLF EXPERIENCE</span><strong>Play beyond<br>the ordinary.</strong><div class="golf-ring"></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-live">LIVE WEBSITE</span><span>Experience + booking</span></div><h3>Beltline Golf</h3><p>Digital customer-facing experience for a golf venue. The current public site is available to explore.</p><a class="project-link" href="https://beltlinegolf.com/" target="_blank" rel="noopener noreferrer">Explore website <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="product" data-stage="demo">
+   <div class="project-cover cover-signal"><div class="browser-chrome"><span></span><span></span><span></span><small>cod3black signal</small></div><div class="cover-layout signal-layout"><span class="tiny-overline">COD3BLACK / SIGNAL</span><strong>From need<br>to next step.</strong><div class="signal-timeline"><i></i><i></i><i></i><i></i></div><span class="small-console">DIAGNOSE → SCOPE → CONVERSATION</span></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-demo">DEPLOYED CONCEPT</span><span>Lead-to-scope workflow</span></div><h3>Cod3Black Signal</h3><p>Prospect qualification, business diagnosis and concept handoff. A working way to start valuable conversations—not a claim of guaranteed sales.</p><a class="project-link" href="https://cod3black-signal-deploy.vercel.app/" target="_blank" rel="noopener noreferrer">Explore concept <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="client" data-stage="demo">
+   <div class="project-cover cover-c3bai"><div class="browser-chrome"><span></span><span></span><span></span><small>c3bai-nu.vercel.app</small></div><div class="cover-layout c3bai-layout"><span class="tiny-overline">COD3BLACK AGENCY</span><strong>Business<br>systems.<br><em>Built to work.</em></strong><div class="system-tags"><b>CRM</b><b>FUNNELS</b><b>AI</b></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-demo">AGENCY PLATFORM</span><span>Funnels + service delivery</span></div><h3>Cod3Black Agency Platform</h3><p>Agency-facing systems and service workflows. Explore the publicly reachable deployment, with separate contracts for client delivery.</p><a class="project-link" href="https://c3bai-nu.vercel.app/" target="_blank" rel="noopener noreferrer">Explore platform <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="product" data-stage="demo">
+   <div class="project-cover cover-trade"><div class="browser-chrome"><span></span><span></span><span></span><small>ktradealerts.vercel.app</small></div><div class="cover-layout trade-layout"><span class="tiny-overline">SIGNALS & ALERTS</span><strong>Information<br>in motion.</strong><div class="trade-chart"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-demo">PUBLIC PROJECT</span><span>Alerts + interface</span></div><h3>KTradeAlerts</h3><p>Trading-alert product interface and notification concepts. Public presence does not imply audited trading performance or financial results.</p><a class="project-link" href="https://ktradealerts.vercel.app/" target="_blank" rel="noopener noreferrer">Explore project <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="research" data-stage="demo">
+   <div class="project-cover cover-opee"><div class="browser-chrome"><span></span><span></span><span></span><small>opee-business-os.vercel.app</small></div><div class="cover-layout opee-layout"><span class="tiny-overline">OPEE / BUSINESS INTELLIGENCE</span><strong>See. Decide.<br>Execute. Verify.</strong><div class="opee-tiles"><i>01</i><i>02</i><i>03</i></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-research">RESEARCH / DEMO</span><span>Governed automation</span></div><h3>OPEE Business OS</h3><p>Business operations visibility and agent coordination concepts. The publicly accessible interface is not a certification of autonomous production operations.</p><a class="project-link" href="https://opee-business-os.vercel.app/" target="_blank" rel="noopener noreferrer">Explore demo <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="research" data-stage="private">
+   <div class="project-cover cover-studio"><div class="browser-chrome"><span></span><span></span><span></span><small>OPEE STUDIO / R&D</small></div><div class="cover-layout studio-layout"><span class="tiny-overline">THE BUILD ENVIRONMENT</span><strong>Orchestrate.<br>Preview.<br>Improve.</strong><div class="studio-boxes"><i></i><i></i><i></i></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-research">INTERNAL DEVELOPMENT</span><span>Product builder</span></div><h3>OPEE Studio</h3><p>Governed generation, preview and publication experiments designed to turn repeat client work into reusable delivery systems.</p><a class="project-link" href="#start" data-offer="automation">Discuss a similar workflow <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="product" data-stage="private">
+   <div class="project-cover cover-market"><div class="browser-chrome"><span></span><span></span><span></span><small>MARKETDAY / R&D</small></div><div class="cover-layout market-layout"><span class="tiny-overline">VENDOR OPERATIONS</span><strong>One market.<br>Less chaos.</strong><div class="market-pills"><i>VENDORS</i><i>UPDATES</i><i>CHECK-IN</i></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-research">PRIVATE PROTOTYPE</span><span>Event + vendors</span></div><h3>MarketDay</h3><p>Vendor coordination and event operations prototypes. Preview is restricted while the product and release scope are being evaluated.</p><a class="project-link" href="#start" data-offer="system">Discuss vendor operations <span aria-hidden="true">↗</span></a></div>
+  </article>
+  <article class="project-card" data-category="product" data-stage="private">
+   <div class="project-cover cover-music"><div class="browser-chrome"><span></span><span></span><span></span><small>MUSICIARDS / R&D</small></div><div class="cover-layout music-layout"><span class="tiny-overline">INTERACTIVE MUSIC</span><strong>Play. Learn.<br>Compete.</strong><div class="music-keys"><i></i><i></i><i></i><i></i><i></i></div></div></div>
+   <div class="project-copy"><div class="project-meta"><span class="state state-research">IN DEVELOPMENT</span><span>Game + education</span></div><h3>Musicards</h3><p>Interactive music-learning game direction, including human-versus-human and computer/AI play concepts. Not presented as a released mobile game.</p><a class="project-link" href="#start" data-offer="system">Discuss an interactive product <span aria-hidden="true">↗</span></a></div>
+  </article>
+ </div>
+ <details class="build-index">
+ <summary><span><strong>Explore the wider build inventory</strong><small>Additional systems, product work, and concepts under development—not implied to be public releases.</small></span><b aria-hidden="true">+</b></summary>
+ <div class="inventory-grid">
+  <div class="inventory-group"><h3>Operations & client systems</h3>
+   <ul>
+    <li><span><strong>NHBBI Admin / CRM</strong><small>Role-based administration, client records and migration work</small></span><em>Integration in progress</em></li>
+    <li><span><strong>ASCA Gallery Administration</strong><small>Albums, media moderation and privacy review workflows</small></span><em>Repair in progress</em></li>
+    <li><span><strong>MarketDay Vendor Pilot</strong><small>Vendor enrollment and market coordination</small></span><em>Private pilot</em></li>
+    <li><span><strong>MarketDay AI Workspace</strong><small>Operator workspace and event-management research</small></span><em>Restricted preview</em></li>
+    <li><span><strong>Gig Mileage Tracker</strong><small>Trip logging, mileage, income and expense workflow</small></span><em>Release unverified</em></li>
+    <li><span><strong>JDS Horse Ranch PWA</strong><small>Mobile-friendly ranch experience</small></span><em>Release unverified</em></li>
+    <li><span><strong>SpeakUp</strong><small>Standalone application project</small></span><em>Release unverified</em></li>
+   </ul>
+  </div>
+  <div class="inventory-group"><h3>AI, orchestration & product R&D</h3>
+   <ul>
+    <li><span><strong>OPEE MAX Core</strong><small>Multi-node coordination, governance and testable execution</small></span><em>Internal R&D</em></li>
+    <li><span><strong>OPEE Mobile / Universe</strong><small>Native control experience and cross-system visibility</small></span><em>Development</em></li>
+    <li><span><strong>OPEE Proofline</strong><small>Evidence collection and completion checks</small></span><em>Internal prototype</em></li>
+    <li><span><strong>OpenClaw Gateway & Node Fleet</strong><small>Phone/VPS/desktop worker coordination</small></span><em>Internal operations</em></li>
+    <li><span><strong>Musician on Demand</strong><small>Marketplace / musician booking product direction</small></span><em>Release unverified</em></li>
+    <li><span><strong>TradeAlerts Integrations</strong><small>Alert distribution and Telegram bot conversion</small></span><em>Development</em></li>
+   </ul>
+  </div>
+  <div class="inventory-group"><h3>Concepts & exploratory launches</h3>
+   <ul>
+    <li><span><strong>Onward Foundation Concept</strong><small>Prospective nonprofit digital experience</small></span><em>Concept only</em></li>
+    <li><span><strong>Jamestown Concept</strong><small>Exploratory small-business site direction</small></span><em>Concept only</em></li>
+    <li><span><strong>Local Business Demo</strong><small>Reusable client-facing sales example</small></span><em>Demo</em></li>
+    <li><span><strong>Clearcoat Mobile Detailing</strong><small>Service-business launch-page experiment</small></span><em>Concept only</em></li>
+    <li><span><strong>FairShift / Northstar</strong><small>Standalone landing and service-product experiments</small></span><em>Concepts only</em></li>
+   </ul>
+  </div>
+ </div>
+ <p class="inventory-caveat">This is a curated development inventory, not a claim that every experiment is finished or for sale. Privately hosted or unfinished systems require a separate demonstrated preview and release assessment before customer delivery.</p>
+</details>
+ <p class="project-disclaimer">Illustrative interface treatments, not screenshots or independent product certifications. “Live” means a public website responded during our review; individual features may still be under development. Additional internal prototypes are not published without verified links and permission.</p>
+</section>
+
+    <section class="section shell final-section" id="start" aria-labelledby="start-heading">
+      <div class="intake-copy"><p class="eyebrow">06 / START WITH THE PROBLEM</p><h2 id="start-heading">Tell us what needs to work.</h2><p>You don't need a technical specification. Tell us what your customers should be able to do and what's stopping them. We'll review the fit and reply with a practical next step.</p><div class="intake-promise"><strong>What happens after you send this</strong><p>We review the inquiry, may ask clarifying questions and, if it's a fit, offer a written scope or paid diagnostic. Submitting is free; it does not create a contract or place an order.</p></div><p class="alt-contact">Prefer email? <a href="mailto:cod3blackagency@gmail.com?subject=CodeWithSolo%20project%20inquiry">cod3blackagency@gmail.com</a></p></div>
+      <div class="form-card">
+        <form id="lead-form" novalidate>
+          <div class="form-header"><strong>PROJECT INQUIRY</strong><span>Usually 2 minutes</span></div>
+          <div class="form-grid">
+            <label class="field">Your name <span>*</span><input type="text" name="name" autocomplete="name" maxlength="100" required></label>
+            <label class="field">Email <span>*</span><input type="email" name="email" autocomplete="email" maxlength="254" required></label>
+            <label class="field">Business / organization<input type="text" name="business" autocomplete="organization" maxlength="140"></label>
+            <label class="field">Current website (optional)<input type="text" name="website" inputmode="url" maxlength="200" placeholder="example.com"></label>
+          </div>
+          <label class="field">What do you need help with? <span>*</span>
+            <select name="service" required>
+              <option value="">Choose the closest match</option>
+              <option value="launch">New one-page launch site</option>
+              <option value="system">Bookings, orders, payments or CRM</option>
+              <option value="repair">Repair a website or customer flow</option>
+              <option value="automation">Automations and follow-up</option>
+              <option value="unsure">Not sure — help me diagnose it</option>
+            </select>
+          </label>
+          <label class="field">What's the business problem or result you need? <span>*</span>
+            <textarea name="vision" rows="4" maxlength="2000" required placeholder="Example: Customers message me on Instagram, but I lose track of who booked and paid. I need one place to manage requests."></textarea>
+          </label>
+          <div class="form-grid">
+            <label class="field">Who should manage it after launch?
+              <select name="management"><option value="unsure">Let's decide together</option><option value="self">Me / my team</option><option value="managed">I'd like ongoing support</option></select>
+            </label>
+            <label class="field">Planning budget
+              <select name="budget"><option value="">Not sure yet</option><option value="under1k">Under $1,000</option><option value="1k-3k">$1,000–$3,000</option><option value="3k-5k">$3,000–$5,000</option><option value="5k-10k">$5,000–$10,000</option><option value="10k+">$10,000+</option></select>
+            </label>
+          </div>
+          <label class="field">Timing
+            <select name="timeline"><option value="flexible">Flexible</option><option value="standard">Within the next few weeks</option><option value="rush">As soon as practical</option></select>
+          </label>
+          <div class="bot-field" aria-hidden="true"><label>Leave this field empty <input type="text" name="company_fax" tabindex="-1" autocomplete="off"></label></div>
+          <label class="consent"><input type="checkbox" name="consent" required><span>I agree to be contacted about this request. My details will be used to review and respond to the inquiry, not automatically enroll me in marketing.</span></label>
+          <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
+          <button class="button button-accent submit" type="submit">Send project inquiry <span aria-hidden="true">↗</span></button>
+          <p class="form-fine">No instant price promises or automatic charges. A quote follows an actual scope review.</p>
+        </form>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="shell footer-inner"><div><strong>CODEWITHSOLO</strong><p>Independent technical execution by Cod3BlackAgency.</p></div><div><a href="#offers">Offers</a><a href="#intelligence">AI approach</a><a href="#portfolio">Projects</a><a href="#ownership">Ownership</a><a href="mailto:cod3blackagency@gmail.com">Email</a></div><span>© <span id="year">2026</span> Cod3BlackAgency</span></div></footer>
 </body>
 </html>
